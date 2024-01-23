@@ -1,4 +1,3 @@
-import "@fontsource-variable/dm-sans";
 import { MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Provider } from "jotai";
@@ -9,7 +8,7 @@ import "./index.css";
 
 const theme = createTheme({
     fontFamily: "DM Sans Variable, sans-serif",
-    defaultRadius: "lg",
+    defaultRadius: "md",
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
