@@ -7,7 +7,10 @@ import App from "./App.tsx";
 import "./index.css";
 
 const theme = createTheme({
-    fontFamily: "DM Sans Variable, sans-serif",
+    fontFamily: "DM Sans, sans-serif",
+    fontFamilyMonospace: "DM Sans, sans-serif",
+    headings: { fontFamily: "DM Sans, sans-serif" },
+
     defaultRadius: "md",
 });
 

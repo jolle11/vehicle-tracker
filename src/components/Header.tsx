@@ -13,14 +13,16 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Car } from "iconoir-react";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
         useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    const navigate = useNavigate();
 
     return (
-        <Box style={{ boxShadow: "0px 0px 10px black" }}>
+        <Box style={{ boxShadow: "0px 0px 5px black" }}>
             <header>
                 <Group justify="space-between" h="100%" p={12}>
                     <Group>
@@ -29,8 +31,15 @@ export function Header() {
                         </Button>
                     </Group>
                     <Group visibleFrom="sm">
-                        <Button variant="default">Log in</Button>
-                        <Button>Sign up</Button>
+                        <Button
+                            variant="default"
+                            onClick={() => navigate("/login")}
+                        >
+                            Log in
+                        </Button>
+                        <Button onClick={() => navigate("/register")}>
+                            Register
+                        </Button>
                     </Group>
 
                     <Burger
