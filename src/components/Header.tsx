@@ -26,7 +26,7 @@ export function Header() {
             <header>
                 <Group justify="space-between" h="100%" p={12}>
                     <Group>
-                        <Button>
+                        <Button onClick={() => navigate("/")}>
                             <Car />
                         </Button>
                     </Group>
