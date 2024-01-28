@@ -25,13 +25,16 @@ const RegisterPage = () => {
         },
     });
 
-    const handlRegister = () => {};
+    const handleRegister = form.onSubmit(
+        (values) => console.log(values),
+        (errors) => console.error(errors)
+    );
 
     return (
         <Container size={420} my={40}>
             <Title ta="center">Let's start tracking</Title>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                <form onSubmit={handleRegister}>
                     <TextInput
                         label="Alias"
                         placeholder="Your alias"

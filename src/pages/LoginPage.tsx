@@ -23,13 +23,16 @@ const LoginPage = () => {
         },
     });
 
-    const handleLogin = () => {};
+    const handleLogin = form.onSubmit(
+        (values) => console.log(values),
+        (errors) => console.error(errors)
+    );
 
     return (
         <Container size={420} my={40}>
             <Title ta="center">Welcome back!</Title>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                <form onSubmit={handleLogin}>
                     <TextInput
                         label="Email"
                         placeholder="you@gmail.com"
