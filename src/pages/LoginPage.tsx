@@ -12,6 +12,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
+import { useLoginUser } from "../auth";
+import { notifications } from "@mantine/notifications";
+import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -23,9 +26,26 @@ const LoginPage = () => {
 		},
 	});
 
-	const handleLogin = form.onSubmit(
-		(values) => console.log(values),
-		(errors) => console.error(errors),
+	const handleLogin = form.onSubmit((values) =>
+		useLoginUser(values)
+			.then((response) => {
+				notifications.show({
+					title: "Success",
+					message: `Welcome back ${response.record.username}`,
+					color: "green",
+					icon: <CheckCircleSolid />,
+					autoClose: 2000,
+				});
+			})
+			.catch((error) => {
+				notifications.show({
+					title: "Oops!",
+					message: error.message,
+					color: "red",
+					icon: <XmarkCircleSolid />,
+					autoClose: 2000,
+				});
+			}),
 	);
 
 	return (

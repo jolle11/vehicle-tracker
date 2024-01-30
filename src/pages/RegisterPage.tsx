@@ -11,6 +11,8 @@ import {
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUser } from "../auth";
+import { notifications } from "@mantine/notifications";
+import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
 
 const RegisterPage = () => {
 	const navigate = useNavigate();
@@ -28,8 +30,25 @@ const RegisterPage = () => {
 
 	const handleRegister = form.onSubmit((values) =>
 		useRegisterUser(values)
-			.then(() => navigate("/dashboard"))
-			.catch((error) => console.log(error.message)),
+			.then((response) => {
+				notifications.show({
+					title: "Success",
+					message: `Welcome ${response.record.username}`,
+					color: "green",
+					icon: <CheckCircleSolid />,
+					autoClose: 2000,
+				});
+				navigate("/dashboard");
+			})
+			.catch((error) => {
+				notifications.show({
+					title: "Oops!",
+					message: error.message,
+					color: "red",
+					icon: <XmarkCircleSolid />,
+					autoClose: 2000,
+				});
+			}),
 	);
 
 	return (
