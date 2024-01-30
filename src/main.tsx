@@ -5,6 +5,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import "@mantine/notifications/styles.css";
+import { Notifications } from "@mantine/notifications";
 
 const theme = createTheme({
 	fontFamily: "DM Sans, sans-serif",
@@ -17,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<Provider>
 			<MantineProvider theme={theme}>
+				<Notifications />
 				<App />
 			</MantineProvider>
 		</Provider>
