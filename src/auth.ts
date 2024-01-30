@@ -23,8 +23,10 @@ export const useRegisterUser = async (user: IRegisterUser) => {
 
 export const useLoginUser = async (user: ILoginUser) => {
 	const PocketBase = await import("pocketbase");
-	const url = import.meta.env.POCKETHOST_URL;
+	const url = import.meta.env.VITE_POCKETHOST_URL;
 	const pb = new PocketBase.default(url);
 
-	return await pb.admins.authWithPassword(user.email, user.password);
+	return await pb
+		.collection("users")
+		.authWithPassword(user.email, user.password);
 };
