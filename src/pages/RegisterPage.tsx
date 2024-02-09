@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import { useRegisterUser } from "../auth";
+import { useRegister } from "../hooks/auth/useRegister";
 import { notifications } from "@mantine/notifications";
 import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
 
@@ -29,7 +29,7 @@ const RegisterPage = () => {
 	});
 
 	const handleRegister = form.onSubmit((values) =>
-		useRegisterUser(values)
+		useRegister(values)
 			.then((response) => {
 				notifications.show({
 					title: "Success",
