@@ -4,6 +4,7 @@ import {
 	Checkbox,
 	Container,
 	Group,
+	Loader,
 	Paper,
 	PasswordInput,
 	Text,
@@ -13,17 +14,20 @@ import {
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/auth/useLogin";
-import { notifications } from "@mantine/notifications";
-import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
+import { Check, Xmark } from "iconoir-react";
 import { tokenAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
 import { useNotifications } from "../hooks/notifications/useNotifications";
+import { useState } from "react";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const notification = useNotifications();
+	const login = useLogin();
+
 	const [, setToken] = useAtom(tokenAtom);
 
-	const notification = useNotifications();
+	const [loading, setLoading] = useState(false);
 
 	const form = useForm({
 		initialValues: {
@@ -32,24 +36,27 @@ const LoginPage = () => {
 		},
 	});
 
-	const handleLogin = form.onSubmit((values) =>
-		useLogin(values)
+	const handleLogin = form.onSubmit((values) => {
+		setLoading(true);
+		login(values)
 			.then((response) => {
 				setToken(response.token);
 				notification({
 					type: "success",
 					message: `Welcome back ${response.record.username}`,
-					icon: <CheckCircleSolid />,
+					icon: <Check />,
 				});
+				setLoading(false);
 			})
 			.catch((error) => {
 				notification({
 					type: "error",
 					message: error.message,
-					icon: <XmarkCircleSolid />,
+					icon: <Xmark />,
 				});
-			}),
-	);
+				setLoading(false);
+			});
+	});
 
 	return (
 		<Container size={420} my={40}>
@@ -75,8 +82,8 @@ const LoginPage = () => {
                         Forgot password?
                     </Anchor>
                 </Group> */}
-					<Button fullWidth mt="xl" type="submit">
-						Login
+					<Button fullWidth mt="xl" type="submit" disabled={loading ?? true}>
+						{loading ? <Loader color="blue" size={"sm"} /> : "Login"}
 					</Button>
 					<Text c="dimmed" size="sm" ta="center" mt={5}>
 						Do not have an account yet?&nbsp;
