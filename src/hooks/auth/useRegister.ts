@@ -10,8 +10,9 @@ interface IRegisterUser {
 	surname: string;
 }
 
-export const useRegister = async (user: IRegisterUser) => {
-	const pb = await useConnectDB();
-
-	return await pb.collection("users").create(user);
+export const useRegister = () => {
+	const pb = useConnectDB();
+	return async (user: IRegisterUser) => {
+		return (await pb).collection("users").create(user);
+	};
 };
