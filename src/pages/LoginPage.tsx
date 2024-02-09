@@ -12,12 +12,18 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import { useLoginUser } from "../auth";
+import { useLogin } from "../hooks/auth/useLogin";
 import { notifications } from "@mantine/notifications";
 import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
+import { tokenAtom } from "../atoms/auth";
+import { useAtom } from "jotai";
+import { useNotifications } from "../hooks/notifications/useNotifications";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const [, setToken] = useAtom(tokenAtom);
+
+	const notification = useNotifications();
 
 	const form = useForm({
 		initialValues: {
@@ -27,23 +33,20 @@ const LoginPage = () => {
 	});
 
 	const handleLogin = form.onSubmit((values) =>
-		useLoginUser(values)
+		useLogin(values)
 			.then((response) => {
-				notifications.show({
-					title: "Success",
+				setToken(response.token);
+				notification({
+					type: "success",
 					message: `Welcome back ${response.record.username}`,
-					color: "green",
 					icon: <CheckCircleSolid />,
-					autoClose: 2000,
 				});
 			})
 			.catch((error) => {
-				notifications.show({
-					title: "Oops!",
+				notification({
+					type: "error",
 					message: error.message,
-					color: "red",
 					icon: <XmarkCircleSolid />,
-					autoClose: 2000,
 				});
 			}),
 	);
