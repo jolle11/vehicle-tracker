@@ -46,6 +46,7 @@ const LoginPage = () => {
 					message: `Welcome back ${response.record.username}`,
 					icon: <Check />,
 				});
+				navigate("/dashboard");
 				setLoading(false);
 			})
 			.catch((error) => {
