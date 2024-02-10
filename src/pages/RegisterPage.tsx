@@ -2,6 +2,7 @@ import {
 	Anchor,
 	Button,
 	Container,
+	Loader,
 	Paper,
 	PasswordInput,
 	Text,
@@ -12,10 +13,22 @@ import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "../hooks/auth/useRegister";
 import { notifications } from "@mantine/notifications";
-import { CheckCircleSolid, XmarkCircleSolid } from "iconoir-react";
+import {
+	Check,
+	CheckCircleSolid,
+	Xmark,
+	XmarkCircleSolid,
+} from "iconoir-react";
+import { useNotifications } from "../hooks/notifications/useNotifications";
+import { useState } from "react";
 
 const RegisterPage = () => {
 	const navigate = useNavigate();
+	const notification = useNotifications();
+	const register = useRegister();
+
+	const [loading, setLoading] = useState(false);
+
 	const form = useForm({
 		initialValues: {
 			username: "",
@@ -28,28 +41,27 @@ const RegisterPage = () => {
 		},
 	});
 
-	const handleRegister = form.onSubmit((values) =>
-		useRegister(values)
+	const handleRegister = form.onSubmit((values) => {
+		setLoading(true);
+		register(values)
 			.then((response) => {
-				notifications.show({
-					title: "Success",
-					message: `Welcome ${response.record.username}`,
-					color: "green",
-					icon: <CheckCircleSolid />,
-					autoClose: 2000,
+				notification({
+					type: "success",
+					message: `Welcome ${response.username}`,
+					icon: <Check />,
 				});
-				navigate("/dashboard");
+				navigate("/login");
+				setLoading(false);
 			})
 			.catch((error) => {
-				notifications.show({
-					title: "Oops!",
+				notification({
+					type: "error",
 					message: error.message,
-					color: "red",
-					icon: <XmarkCircleSolid />,
-					autoClose: 2000,
+					icon: <Xmark />,
 				});
-			}),
-	);
+				setLoading(false);
+			});
+	});
 
 	return (
 		<Container size={420} my={40}>
@@ -94,8 +106,8 @@ const RegisterPage = () => {
 						required
 						{...form.getInputProps("passwordConfirm")}
 					/>
-					<Button fullWidth mt="xl" type="submit">
-						Register
+					<Button fullWidth mt="xl" type="submit" disabled={loading ?? true}>
+						{loading ? <Loader color="blue" size={"sm"} /> : "Register"}
 					</Button>
 					<Text c="dimmed" size="sm" ta="center" mt={5}>
 						Already have an account yet?&nbsp;
