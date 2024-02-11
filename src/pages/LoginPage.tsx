@@ -15,10 +15,11 @@ import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/auth/useLogin";
 import { Check, Xmark } from "iconoir-react";
-import { tokenAtom } from "../atoms/auth";
+import { tokenAtom, userAuthenticatedAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
 import { useNotifications } from "../hooks/notifications/useNotifications";
 import { useState } from "react";
+import { userAtom } from "../atoms/user";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -26,6 +27,8 @@ const LoginPage = () => {
 	const login = useLogin();
 
 	const [, setToken] = useAtom(tokenAtom);
+	const [, setUserAuthenticated] = useAtom(userAuthenticatedAtom);
+	const [, setUser] = useAtom(userAtom);
 
 	const [loading, setLoading] = useState(false);
 
@@ -41,6 +44,12 @@ const LoginPage = () => {
 		login(values)
 			.then((response) => {
 				setToken(response.token);
+				setUserAuthenticated(true);
+				setUser({
+					id: response.record.id,
+					username: response.record.username,
+					email: response.record.email,
+				});
 				notification({
 					type: "success",
 					message: `Welcome back ${response.record.username}`,
