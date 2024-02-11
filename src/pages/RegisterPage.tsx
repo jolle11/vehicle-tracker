@@ -12,13 +12,7 @@ import {
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "../hooks/auth/useRegister";
-import { notifications } from "@mantine/notifications";
-import {
-	Check,
-	CheckCircleSolid,
-	Xmark,
-	XmarkCircleSolid,
-} from "iconoir-react";
+import { Check, Xmark } from "iconoir-react";
 import { useNotifications } from "../hooks/notifications/useNotifications";
 import { useState } from "react";
 
@@ -44,13 +38,14 @@ const RegisterPage = () => {
 	const handleRegister = form.onSubmit((values) => {
 		setLoading(true);
 		register(values)
+			// TODO finish setting user values on register, etc
 			.then((response) => {
 				notification({
 					type: "success",
 					message: `Welcome ${response.username}`,
 					icon: <Check />,
 				});
-				navigate("/login");
+				navigate("/dashboard");
 				setLoading(false);
 			})
 			.catch((error) => {
