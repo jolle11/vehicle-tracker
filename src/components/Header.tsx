@@ -9,6 +9,7 @@ import {
 	Drawer,
 	Group,
 	ScrollArea,
+	Select,
 	UnstyledButton,
 	rem,
 	useComputedColorScheme,
@@ -17,6 +18,9 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { Car, HalfMoon, SunLight } from "iconoir-react";
 import { useNavigate } from "react-router-dom";
+import { userAuthenticatedAtom } from "../atoms/auth";
+import { useAtom } from "jotai";
+import { userAtom } from "../atoms/user";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -30,6 +34,11 @@ export function Header() {
 
 	const navigate = useNavigate();
 
+	const [userAuthenticated, setUserAuthenticated] = useAtom(
+		userAuthenticatedAtom,
+	);
+	const [, setUser] = useAtom(userAtom);
+
 	return (
 		<Box style={{ boxShadow: "0px 0px 5px black" }}>
 			<header>
@@ -40,6 +49,13 @@ export function Header() {
 							<Car />
 						</Button>
 					</Group>
+					{userAuthenticated && (
+						<Select
+							placeholder="Pick a car"
+							data={["Ford", "Peugeot", "Renault", "Volvo"]}
+							leftSection={<Car fontSize={12} />}
+						/>
+					)}
 					<Group visibleFrom="sm">
 						<ActionIcon
 							onClick={() =>
@@ -58,11 +74,25 @@ export function Header() {
 								<HalfMoon fontSize={14} />
 							)}
 						</ActionIcon>
-
-						<Button variant="default" onClick={() => navigate("/login")}>
-							Log in
-						</Button>
-						<Button onClick={() => navigate("/register")}>Register</Button>
+						{userAuthenticated ? (
+							<Button
+								color="red.9"
+								variant="light"
+								onClick={() => {
+									setUserAuthenticated(false);
+									setUser({ id: "", email: "", username: "" });
+								}}
+							>
+								Logout
+							</Button>
+						) : (
+							<>
+								<Button variant="default" onClick={() => navigate("/login")}>
+									Log in
+								</Button>
+								<Button onClick={() => navigate("/register")}>Register</Button>
+							</>
+						)}
 					</Group>
 
 					<Burger
