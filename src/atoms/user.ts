@@ -5,3 +5,5 @@ export const userAtom = atom({
 	username: "",
 	email: "",
 });
+
+export const userVehiclesAtom = atom([{}]);
