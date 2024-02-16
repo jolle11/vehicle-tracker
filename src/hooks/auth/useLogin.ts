@@ -10,6 +10,6 @@ export const useLogin = () => {
 	return async (user: ILoginUser) => {
 		return (await pb)
 			.collection("users")
-			.authWithPassword(user.email, user.password);
+			.authWithPassword(user.email.trim(), user.password);
 	};
 };
