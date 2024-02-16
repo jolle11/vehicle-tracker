@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import { userAtom, userVehiclesAtom } from "../atoms/user";
-import { Title } from "@mantine/core";
+import { Container, Title, Text } from "@mantine/core";
 import { userAuthenticatedAtom } from "../atoms/auth";
 import { useEffect } from "react";
-import { useListVehicles } from "../hooks/vehicles/useListVehicles";
+import { useListVehicles } from "../hooks/vehicles/useVehicleActions";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
@@ -17,10 +17,15 @@ const DashboardPage = () => {
 		if (userAuthenticated) {
 			listVehicles(user.id).then((response) => setUserVehicles(response.items));
 		}
-	}, []);
+	}, [user]);
 
 	return userAuthenticated ? (
-		<Title>Hello {user.username}!</Title>
+		<Container size={"lg"} my={40}>
+			<Title>Hello {user.username}!</Title>
+			{userVehicles.map((vehicle, index) => (
+				<Text>{vehicle.brand}</Text>
+			))}
+		</Container>
 	) : (
 		<Title>Take control of your car expenses with vehicle tracker</Title>
 	);
