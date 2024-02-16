@@ -2,8 +2,8 @@ import { atom } from "jotai";
 
 export const vehicleAtom = atom({
 	id: "",
-	user_id: "",
 	nameplate: "",
+	brand: "",
 	kms: null,
 	expenses: "",
 });
