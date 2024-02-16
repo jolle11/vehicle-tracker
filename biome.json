@@ -10,7 +10,9 @@
 		"rules": {
 			"all": true,
 			"style": { "useNamingConvention": "off" },
-			"suspicious": { "noConsoleLog": "off" }
+			"suspicious": { "noConsoleLog": "off" },
+			"correctness": { "useExhaustiveDependencies": "off" },
+			"nursery": { "useImportRestrictions": "off" }
 		}
 	},
 	"organizeImports": {
