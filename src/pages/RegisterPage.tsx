@@ -15,13 +15,19 @@ import { useRegister } from "../hooks/auth/useRegister";
 import { Check, Xmark } from "iconoir-react";
 import { useNotifications } from "../hooks/notifications/useNotifications";
 import { useState } from "react";
+import { useLogin } from "../hooks/auth/useLogin";
+import { useAtom } from "jotai";
+import { userAuthenticatedAtom } from "../atoms/auth";
 
 const RegisterPage = () => {
 	const navigate = useNavigate();
 	const notification = useNotifications();
 	const register = useRegister();
+	const login = useLogin();
 
 	const [loading, setLoading] = useState(false);
+
+	const [, setUserAuthenticated] = useAtom(userAuthenticatedAtom);
 
 	const form = useForm({
 		initialValues: {
@@ -38,8 +44,10 @@ const RegisterPage = () => {
 	const handleRegister = form.onSubmit((values) => {
 		setLoading(true);
 		register(values)
-			// TODO finish setting user values on register, etc
+			// TODO finish setting user atom values on register, etc
 			.then((response) => {
+				login({ email: response.email, password: values.password });
+				setUserAuthenticated(true);
 				notification({
 					type: "success",
 					message: `Welcome ${response.username}`,
