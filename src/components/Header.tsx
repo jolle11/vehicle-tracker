@@ -1,10 +1,12 @@
 import {
 	ActionIcon,
+	Autocomplete,
 	Box,
 	Burger,
 	Button,
 	Center,
 	Collapse,
+	Container,
 	Divider,
 	Drawer,
 	Group,
@@ -17,10 +19,11 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Car, HalfMoon, SunLight } from "iconoir-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
-import { userAtom } from "../atoms/user";
+import { userAtom, userVehiclesAtom } from "../atoms/user";
+import { vehicleAtom } from "../atoms/vehicle";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -33,74 +36,75 @@ export function Header() {
 	});
 
 	const navigate = useNavigate();
+	// const [vehicle, setVehicle] = useAtom(vehicleAtom);
 
 	const [userAuthenticated, setUserAuthenticated] = useAtom(
 		userAuthenticatedAtom,
 	);
 	const [, setUser] = useAtom(userAtom);
+	// const [userVehicles] = useAtom(userVehiclesAtom);
 
 	return (
-		<Box style={{ boxShadow: "0px 0px 5px black" }}>
+		<Box style={{ boxShadow: "0px 0px 5px gray" }}>
 			<header>
-				<Group justify="space-between" h="100%" p={12}>
-					<Group>
-						{/* TODO if user is authenticated, go to dashboard, otherwise go to landing page or home */}
-						<Button onClick={() => navigate("/dashboard")}>
-							<Car />
-						</Button>
-					</Group>
-					{userAuthenticated && (
-						<Select
-							placeholder="Pick a car"
-							data={["Ford", "Peugeot", "Renault", "Volvo"]}
-							leftSection={<Car fontSize={12} />}
-						/>
-					)}
-					<Group visibleFrom="sm">
-						<ActionIcon
-							onClick={() =>
-								setColorScheme(
-									computedColorScheme === "light" ? "dark" : "light",
-								)
-							}
-							variant="default"
-							size="lg"
-							radius="xl"
-							aria-label="Toggle color scheme"
-						>
-							{computedColorScheme === "light" ? (
-								<SunLight fontSize={14} />
-							) : (
-								<HalfMoon fontSize={14} />
-							)}
-						</ActionIcon>
-						{userAuthenticated ? (
-							<Button
-								color="red.9"
-								variant="light"
-								onClick={() => {
-									setUserAuthenticated(false);
-									setUser({ id: "", email: "", username: "" });
-								}}
-							>
-								Logout
+				<Container size={"lg"}>
+					<Group justify="space-between" h="100%" py={12}>
+						<Group>
+							<Button onClick={() => navigate("/dashboard")}>
+								<Car />
 							</Button>
-						) : (
-							<>
-								<Button variant="default" onClick={() => navigate("/login")}>
-									Log in
+						</Group>
+						{/* TODO Vehicles select/autocomplete */}
+						<Group visibleFrom="sm">
+							<ActionIcon
+								onClick={() =>
+									setColorScheme(
+										computedColorScheme === "light" ? "dark" : "light",
+									)
+								}
+								variant="default"
+								size="lg"
+								radius="xl"
+								aria-label="Toggle color scheme"
+							>
+								{computedColorScheme === "light" ? (
+									<SunLight fontSize={14} />
+								) : (
+									<HalfMoon fontSize={14} />
+								)}
+							</ActionIcon>
+							{userAuthenticated ? (
+								// TODO Create function for logout with notification and deletion from local storage
+								<Button
+									color="red.9"
+									variant="light"
+									onClick={() => {
+										setUserAuthenticated(false);
+										setUser({ id: "", email: "", username: "" });
+										localStorage.removeItem("pocketbase_auth");
+									}}
+								>
+									Logout
 								</Button>
-								<Button onClick={() => navigate("/register")}>Register</Button>
-							</>
-						)}
-					</Group>
+							) : (
+								<>
+									<Button variant="default" onClick={() => navigate("/login")}>
+										Log in
+									</Button>
+									<Button onClick={() => navigate("/register")}>
+										Register
+									</Button>
+								</>
+							)}
+						</Group>
 
-					<Burger
-						opened={drawerOpened}
-						onClick={toggleDrawer}
-						hiddenFrom="sm"
-					/>
-				</Group>
+						<Burger
+							opened={drawerOpened}
+							onClick={toggleDrawer}
+							hiddenFrom="sm"
+						/>
+					</Group>
+				</Container>
 			</header>
 
 			<Drawer
@@ -108,13 +112,13 @@ export function Header() {
 				onClose={closeDrawer}
 				size="100%"
 				padding="md"
-				title="Navigation"
+				title="Menu"
 				hiddenFrom="sm"
 				zIndex={1000000}
 			>
 				<ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
 					<Divider my="sm" />
-					<a href="#">Home</a>
+					<Link to="/">Home</Link>
 					<UnstyledButton onClick={toggleLinks}>
 						<Center inline>
 							<Box component="span" mr={5}>
@@ -122,15 +126,48 @@ export function Header() {
 							</Box>
 						</Center>
 					</UnstyledButton>
-					<Collapse in={linksOpened}></Collapse>
-					<a href="#">Learn</a>
-					<a href="#">Academy</a>
+					<Collapse in={linksOpened}>
+						<Link to="/">Learn</Link>
+						<Link to="/">Academy</Link>
+					</Collapse>
 
 					<Divider my="sm" />
 
 					<Group justify="center" grow pb="xl" px="md">
-						<Button variant="default">Log in</Button>
-						<Button>Sign up</Button>
+						{userAuthenticated ? (
+							// TODO Create function for logout with notification and deletion from local storage
+							<Button
+								color="red.9"
+								variant="light"
+								onClick={() => {
+									setUserAuthenticated(false);
+									setUser({ id: "", email: "", username: "" });
+									localStorage.removeItem("pocketbase_auth");
+								}}
+							>
+								Logout
+							</Button>
+						) : (
+							<>
+								<Button
+									variant="default"
+									onClick={() => {
+										navigate("/login");
+										closeDrawer();
+									}}
+								>
+									Log in
+								</Button>
+								<Button
+									onClick={() => {
+										navigate("/register");
+										closeDrawer();
+									}}
+								>
+									Register
+								</Button>
+							</>
+						)}{" "}
 					</Group>
 				</ScrollArea>
 			</Drawer>
