@@ -3,8 +3,16 @@ import { Header } from "./components/Header";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import { useEffect } from "react";
+import { useGetUser } from "./hooks/auth/useGetUser";
 
 function App() {
+	const setUser = useGetUser();
+
+	useEffect(() => {
+		setUser();
+	}, []);
+
 	return (
 		<div className="app">
 			<Router>
