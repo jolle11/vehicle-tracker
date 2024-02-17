@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { vehicleAtom } from "./vehicle";
+import { IVehicle } from "./vehicle";
 
 export const userAtom = atom({
 	id: "",
@@ -7,4 +7,4 @@ export const userAtom = atom({
 	email: "",
 });
 
-export const userVehiclesAtom = atom([vehicleAtom]);
+export const userVehiclesAtom = atom<IVehicle[]>([]);
