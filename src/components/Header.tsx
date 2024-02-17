@@ -1,6 +1,5 @@
 import {
 	ActionIcon,
-	Autocomplete,
 	Box,
 	Burger,
 	Button,
@@ -11,7 +10,6 @@ import {
 	Drawer,
 	Group,
 	ScrollArea,
-	Select,
 	UnstyledButton,
 	rem,
 	useComputedColorScheme,
@@ -23,7 +21,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
 import { userAtom, userVehiclesAtom } from "../atoms/user";
-import { vehicleAtom } from "../atoms/vehicle";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
