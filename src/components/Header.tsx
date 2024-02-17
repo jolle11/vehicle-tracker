@@ -36,13 +36,12 @@ export function Header() {
 	});
 
 	const navigate = useNavigate();
-	// const [vehicle, setVehicle] = useAtom(vehicleAtom);
 
 	const [userAuthenticated, setUserAuthenticated] = useAtom(
 		userAuthenticatedAtom,
 	);
 	const [, setUser] = useAtom(userAtom);
-	// const [userVehicles] = useAtom(userVehiclesAtom);
+	const [, setUserVehicles] = useAtom(userVehiclesAtom);
 
 	return (
 		<Box style={{ boxShadow: "0px 0px 5px gray" }}>
@@ -54,7 +53,6 @@ export function Header() {
 								<Car />
 							</Button>
 						</Group>
-						{/* TODO Vehicles select/autocomplete */}
 						<Group visibleFrom="sm">
 							<ActionIcon
 								onClick={() =>
@@ -81,6 +79,7 @@ export function Header() {
 									onClick={() => {
 										setUserAuthenticated(false);
 										setUser({ id: "", email: "", username: "" });
+										setUserVehicles([]);
 										localStorage.removeItem("pocketbase_auth");
 									}}
 								>
@@ -142,6 +141,7 @@ export function Header() {
 								onClick={() => {
 									setUserAuthenticated(false);
 									setUser({ id: "", email: "", username: "" });
+									setUserVehicles([]);
 									localStorage.removeItem("pocketbase_auth");
 								}}
 							>
