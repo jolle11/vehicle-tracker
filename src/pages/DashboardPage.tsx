@@ -3,7 +3,6 @@ import { userAtom, userVehiclesAtom } from "../atoms/user";
 import {
 	Container,
 	Title,
-	Text,
 	Badge,
 	Button,
 	Card,
@@ -15,6 +14,7 @@ import { userAuthenticatedAtom } from "../atoms/auth";
 import { useEffect } from "react";
 import { useListVehicles } from "../hooks/vehicles/useVehicleActions";
 import BrandLogo from "../components/BrandLogo";
+import { GasTankDroplet, Wrench } from "iconoir-react";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
@@ -58,14 +58,23 @@ const DashboardPage = () => {
 							</Group>
 							<Group justify="space-between" mb="sm" mt="md" h={30}>
 								<Title size={20}>{vehicle.nameplate}</Title>
-								<Badge color={`#${vehicle.color}`}>
+								<Badge
+									color={`#${vehicle.color}`}
+									style={{ boxShadow: "0px 2px 5px gray" }}
+								>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</Badge>
 							</Group>
-							<Button color="blue" fullWidth my="sm" radius="md">
-								{/* TODO Add modal to add new register to the car */}
-								<Text size="30">+</Text>
-							</Button>
+							<Group justify="center">
+								<Button color="blue" my="sm" variant="light">
+									{/* TODO Add modal to add new fuel register to the car */}
+									<GasTankDroplet />
+								</Button>
+								<Button color="blue" my="sm" variant="light">
+									{/* TODO Add modal to add new repair register to the car */}
+									<Wrench />
+								</Button>
+							</Group>
 						</Card>
 					))
 				) : (
