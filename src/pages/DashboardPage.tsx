@@ -1,20 +1,9 @@
 import { useAtom } from "jotai";
 import { userAtom, userVehiclesAtom } from "../atoms/user";
-import {
-	Container,
-	Title,
-	Badge,
-	Button,
-	Card,
-	Group,
-	Flex,
-	Loader,
-} from "@mantine/core";
+import { Container, Title, Flex, Loader } from "@mantine/core";
 import { userAuthenticatedAtom } from "../atoms/auth";
 import { useEffect } from "react";
 import { useListVehicles } from "../hooks/vehicles/useVehicleActions";
-import BrandLogo from "../components/BrandLogo";
-import { GasTankDroplet, Wrench } from "iconoir-react";
 import VehicleCard from "../components/VehicleCard";
 
 const DashboardPage = () => {
