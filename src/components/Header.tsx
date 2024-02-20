@@ -20,7 +20,7 @@ import { Car, HalfMoon, SunLight } from "iconoir-react";
 import { Link, useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
-import { userAtom, userVehiclesAtom } from "../atoms/user";
+import useLogout from "../hooks/auth/useLogout";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -34,11 +34,9 @@ export function Header() {
 
 	const navigate = useNavigate();
 
-	const [userAuthenticated, setUserAuthenticated] = useAtom(
-		userAuthenticatedAtom,
-	);
-	const [, setUser] = useAtom(userAtom);
-	const [, setUserVehicles] = useAtom(userVehiclesAtom);
+	const logout = useLogout();
+
+	const [userAuthenticated] = useAtom(userAuthenticatedAtom);
 
 	return (
 		<Box style={{ boxShadow: "0px 0px 5px gray" }}>
@@ -70,16 +68,7 @@ export function Header() {
 							</ActionIcon>
 							{userAuthenticated ? (
 								// TODO Create function for logout with notification and deletion from local storage
-								<Button
-									color="red.9"
-									variant="light"
-									onClick={() => {
-										setUserAuthenticated(false);
-										setUser({ id: "", email: "", username: "" });
-										setUserVehicles([]);
-										localStorage.removeItem("pocketbase_auth");
-									}}
-								>
+								<Button color="red.9" variant="light" onClick={logout}>
 									Logout
 								</Button>
 							) : (
@@ -132,16 +121,7 @@ export function Header() {
 					<Group justify="center" grow pb="xl" px="md">
 						{userAuthenticated ? (
 							// TODO Create function for logout with notification and deletion from local storage
-							<Button
-								color="red.9"
-								variant="light"
-								onClick={() => {
-									setUserAuthenticated(false);
-									setUser({ id: "", email: "", username: "" });
-									setUserVehicles([]);
-									localStorage.removeItem("pocketbase_auth");
-								}}
-							>
+							<Button color="red.9" variant="light" onClick={logout}>
 								Logout
 							</Button>
 						) : (
