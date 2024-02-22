@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect } from "react";
 import { useGetUser } from "./hooks/auth/useGetUser";
+import VehiclePage from "./pages/VehiclePage";
 
 function App() {
 	const setUser = useGetUser();
@@ -24,7 +25,7 @@ function App() {
 					<Route path="/register" element={<RegisterPage />} />
 					<Route
 						path="/:vehicleBrand/:vehicleNameplate"
-						element={<RegisterPage />}
+						element={<VehiclePage />}
 					/>
 				</Routes>
 			</Router>
