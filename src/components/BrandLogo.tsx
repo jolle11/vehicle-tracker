@@ -10,6 +10,7 @@ const BrandLogo = ({ brand }: IBrandLogo) => {
 	return (
 		<Image
 			h={100}
+			fit="contain"
 			my={"sm"}
 			src={`https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/thumb/${formattedBrand}.png`}
 		/>
