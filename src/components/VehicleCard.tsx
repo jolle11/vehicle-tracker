@@ -1,9 +1,17 @@
 import { Badge, Button, Card, Group, Title } from "@mantine/core";
-import { GasTankDroplet, Wrench } from "iconoir-react";
+import { GasTankDroplet, Slash, Wrench } from "iconoir-react";
 import BrandLogo from "./BrandLogo";
-import { IVehicle } from "../atoms/vehicle";
+import { IVehicle, vehicleAtom } from "../atoms/vehicle";
+import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
 
-const VehicleCard = ({ vehicle }: { vehicle: IVehicle }) => {
+const VehicleCard = ({
+	vehicle,
+	openModal,
+}: { vehicle: IVehicle; openModal: () => void }) => {
+	const navigate = useNavigate();
+	const [, setSelectedVehicle] = useAtom(vehicleAtom);
+
 	return (
 		<Card
 			key={vehicle.id}
@@ -12,6 +20,15 @@ const VehicleCard = ({ vehicle }: { vehicle: IVehicle }) => {
 			radius="md"
 			withBorder
 			w={220}
+			onClick={(event) => {
+				const shouldNavigate = !(event.target as HTMLElement).closest("button");
+
+				if (shouldNavigate) {
+					navigate(`/${vehicle.brand}/${vehicle.nameplate}`);
+					setSelectedVehicle(vehicle);
+				}
+			}}
+			style={{ cursor: "pointer" }}
 		>
 			<Group justify="center">
 				<BrandLogo brand={vehicle.brand} />
@@ -25,13 +42,18 @@ const VehicleCard = ({ vehicle }: { vehicle: IVehicle }) => {
 				/>
 			</Group>
 			<Group justify="center">
-				<Button color="blue" my="sm" variant="light">
-					{/* TODO Add modal to add new fuel register to the car */}
+				<Button
+					color="blue"
+					my="sm"
+					variant="solid"
+					fullWidth
+					onClick={(event) => {
+						openModal();
+						event.stopPropagation();
+					}}
+				>
 					<GasTankDroplet />
-				</Button>
-				<Button color="blue" my="sm" variant="light">
-					{/* TODO Add modal to add new repair register to the car */}
-					<Wrench />
+					<Slash /> <Wrench />
 				</Button>
 			</Group>
 		</Card>
