@@ -41,7 +41,7 @@ const DashboardPage = () => {
 						<VehicleCard vehicle={vehicle} openModal={open} />
 					))
 				) : (
-					<Loader color="blue" size={"xl"} mt={"xl"} />
+					<Loader size={"xl"} mt={"xl"} />
 				)}
 			</Flex>
 			<Modal opened={opened} onClose={close} title="New register">
