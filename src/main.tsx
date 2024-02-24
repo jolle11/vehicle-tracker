@@ -13,6 +13,8 @@ const theme = createTheme({
 	fontFamilyMonospace: "DM Sans, sans-serif",
 	headings: { fontFamily: "DM Sans, sans-serif" },
 	defaultRadius: "md",
+	primaryColor: "indigo",
+	primaryShade: 7,
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
