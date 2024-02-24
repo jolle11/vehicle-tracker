@@ -10,7 +10,7 @@ const VehicleCard = ({
 	openModal,
 }: { vehicle: IVehicle; openModal: () => void }) => {
 	const navigate = useNavigate();
-	const [, setSelectedVehicle] = useAtom(vehicleAtom);
+	const [, setVehicle] = useAtom(vehicleAtom);
 
 	return (
 		<Card
@@ -22,10 +22,14 @@ const VehicleCard = ({
 			w={220}
 			onClick={(event) => {
 				const shouldNavigate = !(event.target as HTMLElement).closest("button");
-
 				if (shouldNavigate) {
-					navigate(`/${vehicle.brand}/${vehicle.nameplate}`);
-					setSelectedVehicle(vehicle);
+					localStorage.setItem("selectedVehicle", JSON.stringify(vehicle));
+					setVehicle(vehicle);
+					navigate(
+						`/${vehicle.brand
+							.toLowerCase()
+							.replace(" ", "-")}/${vehicle.nameplate.toLowerCase()}`,
+					);
 				}
 			}}
 			style={{ cursor: "pointer" }}
