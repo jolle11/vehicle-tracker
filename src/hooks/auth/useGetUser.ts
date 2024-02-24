@@ -8,10 +8,10 @@ export const useGetUser = () => {
 		userAuthenticatedAtom,
 	);
 	return () => {
-		if (!userAuthenticated) {
-			const localUser = JSON.parse(
-				localStorage.getItem("pocketbase_auth"),
-			)?.model;
+		const localUser = JSON.parse(
+			localStorage.getItem("pocketbase_auth") as string,
+		)?.model;
+		if (!userAuthenticated && localUser !== undefined) {
 			setUser({
 				id: localUser?.id,
 				username: localUser?.username,
