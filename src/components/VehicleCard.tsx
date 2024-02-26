@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Group, Title } from "@mantine/core";
+import { Badge, Button, Card, Group, Title, Text } from "@mantine/core";
 import { GasTankDroplet, Slash, Wrench } from "iconoir-react";
 import BrandLogo from "./BrandLogo";
 import { IVehicle, vehicleAtom } from "../atoms/vehicle";
@@ -44,6 +44,11 @@ const VehicleCard = ({
 					style={{ boxShadow: "0px 2px 5px gray" }}
 					w={50}
 				/>
+			</Group>
+			<Group justify="center" mb="sm" mt="md">
+				<Text>Last register: {vehicle.last_km}</Text>
+				<Text>Media tank: {vehicle.media_tank}</Text>
+				<Text>Media paid: {vehicle.media_paid}</Text>
 			</Group>
 			<Group justify="center">
 				<Button
