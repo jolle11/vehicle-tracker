@@ -14,7 +14,7 @@ const DashboardPage = () => {
 	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
 
 	const listVehicles = useListVehicles();
-	const formatMedia = useNumberFormat();
+	const mediaFormat = useNumberFormat();
 
 	const [opened, { open, close }] = useDisclosure(false);
 
@@ -22,16 +22,14 @@ const DashboardPage = () => {
 		if (userAuthenticated) {
 			listVehicles(user.id)
 				.then((response) => {
-					console.log(response);
-
 					const formatResponse = response.items.map((item) => ({
 						id: item.id,
 						nameplate: item.nameplate,
 						brand: item.brand,
 						color: item.color,
 						last_km: item.last_km,
-						media_tank: formatMedia(item.media_tank) ?? 0,
-						media_paid: formatMedia(item.media_paid) ?? 0,
+						media_tank: mediaFormat(item.media_tank) ?? 0,
+						media_paid: mediaFormat(item.media_paid) ?? 0,
 					}));
 					setUserVehicles(formatResponse);
 				})
