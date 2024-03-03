@@ -1,5 +1,5 @@
 import { Badge, Button, Card, Group, Title, Text } from "@mantine/core";
-import { GasTankDroplet, Slash, Wrench } from "iconoir-react";
+import { GasTankDroplet } from "iconoir-react";
 import BrandLogo from "./BrandLogo";
 import { IVehicle, vehicleAtom } from "../atoms/vehicle";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +52,6 @@ const VehicleCard = ({
 			</Group>
 			<Group justify="center">
 				<Button
-					color="blue"
 					my="sm"
 					variant="solid"
 					fullWidth
@@ -61,8 +60,8 @@ const VehicleCard = ({
 						event.stopPropagation();
 					}}
 				>
+					Add &nbsp;
 					<GasTankDroplet />
-					<Slash /> <Wrench />
 				</Button>
 			</Group>
 		</Card>
