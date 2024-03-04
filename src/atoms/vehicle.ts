@@ -10,7 +10,22 @@ export interface IVehicle {
 	media_paid: string | number | null;
 }
 
-export const vehicleAtom = atom({
+export interface ICreateVehicle {
+	user_id: string;
+	nameplate: string;
+	brand: string;
+	color: string;
+	current_kms: number;
+}
+
+export interface IRegisterKms {
+	vehicle_id: string;
+	km: number;
+	price?: number;
+	paid?: number;
+}
+
+export const vehicleAtom = atom<IVehicle>({
 	id: "",
 	nameplate: "",
 	brand: "",
