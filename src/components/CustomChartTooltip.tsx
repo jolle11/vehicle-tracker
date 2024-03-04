@@ -12,14 +12,19 @@ const CustomChartTooltip = ({ label, payload }: ChartTooltipProps) => {
 	if (!payload) return null;
 
 	return (
-		<Paper px="md" py="sm" withBorder shadow="md" radius="md">
+		<Paper px="sm" py="sm" withBorder shadow="md">
 			<Text fw={500} mb={5}>
 				{label}
 			</Text>
 			{payload.map((item: any) => (
-				<Text key={item.name} c={item.color} fz="sm">
-					{capitalize(item.name)}: {item.value}€
-				</Text>
+				<>
+					<Text key={item.name} c={item.color} fz="sm">
+						{capitalize(item.name)}: {item.value}€
+					</Text>
+					<Text key={item.name} c="green.9" fz="sm">
+						Refueled on: {item.payload.km} km
+					</Text>
+				</>
 			))}
 		</Paper>
 	);
