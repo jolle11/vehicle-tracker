@@ -4,11 +4,13 @@ import BrandLogo from "./BrandLogo";
 import { IVehicle, vehicleAtom } from "../atoms/vehicle";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
+import { Dispatch, SetStateAction } from "react";
+import useCapitalizeFirstLetter from "../hooks/utils/useCapitalizeFirstLetter";
 
 const VehicleCard = ({
 	vehicle,
 	openModal,
-}: { vehicle: IVehicle; openModal: () => void }) => {
+}: { vehicle: IVehicle; openModal: Dispatch<SetStateAction<string>> }) => {
 	const navigate = useNavigate();
 	const [, setVehicle] = useAtom(vehicleAtom);
 
@@ -38,9 +40,9 @@ const VehicleCard = ({
 				<BrandLogo brand={vehicle.brand} />
 			</Group>
 			<Group justify="space-between" mb="sm" mt="md" h={30}>
-				<Title size={20}>{vehicle.nameplate}</Title>
+				<Title size={20}>{vehicle.nameplate.toUpperCase()}</Title>
 				<Badge
-					color={`#${vehicle.color}`}
+					color={vehicle.color}
 					style={{ boxShadow: "0px 2px 5px gray" }}
 					w={50}
 				/>
@@ -56,7 +58,7 @@ const VehicleCard = ({
 					variant="solid"
 					fullWidth
 					onClick={(event) => {
-						openModal();
+						openModal("add-fuel");
 						event.stopPropagation();
 					}}
 				>
