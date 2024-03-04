@@ -1,6 +1,9 @@
 import { Card, Button, Group } from "@mantine/core";
+import { Dispatch, SetStateAction } from "react";
 
-const NewVehicleCard = () => {
+const NewVehicleCard = ({
+	openModal,
+}: { openModal: Dispatch<SetStateAction<string>> }) => {
 	return (
 		<Card
 			w={220}
@@ -17,10 +20,10 @@ const NewVehicleCard = () => {
 					my={"sm"}
 					variant="outline"
 					fullWidth
-					// onClick={(event) => {
-					// 	openModal();
-					// 	event.stopPropagation();
-					// }}
+					onClick={(event) => {
+						openModal("add-new-car");
+						event.stopPropagation();
+					}}
 				>
 					Add new vehicle
 				</Button>
