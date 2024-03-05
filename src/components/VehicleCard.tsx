@@ -5,7 +5,6 @@ import { IVehicle, vehicleAtom } from "../atoms/vehicle";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import { Dispatch, SetStateAction } from "react";
-import useCapitalizeFirstLetter from "../hooks/utils/useCapitalizeFirstLetter";
 
 const VehicleCard = ({
 	vehicle,
@@ -22,6 +21,7 @@ const VehicleCard = ({
 			radius="md"
 			withBorder
 			w={220}
+			style={{ cursor: "pointer" }}
 			onClick={(event) => {
 				const shouldNavigate = !(event.target as HTMLElement).closest("button");
 				if (shouldNavigate) {
@@ -34,7 +34,6 @@ const VehicleCard = ({
 					);
 				}
 			}}
-			style={{ cursor: "pointer" }}
 		>
 			<Group justify="center">
 				<BrandLogo brand={vehicle.brand} />
@@ -58,6 +57,7 @@ const VehicleCard = ({
 					variant="solid"
 					fullWidth
 					onClick={(event) => {
+						setVehicle(vehicle);
 						openModal("add-fuel");
 						event.stopPropagation();
 					}}
