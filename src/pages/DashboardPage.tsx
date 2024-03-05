@@ -23,9 +23,11 @@ import VehicleCard from "../components/VehicleCard";
 import useNumberFormat from "../hooks/utils/useNumberFormat";
 import NewVehicleCard from "../components/NewVehicleCard";
 import { useForm } from "@mantine/form";
+import { vehicleAtom } from "../atoms/vehicle";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
+	const [vehicle] = useAtom(vehicleAtom);
 	const [userAuthenticated] = useAtom(userAuthenticatedAtom);
 	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
 
@@ -39,7 +41,7 @@ const DashboardPage = () => {
 
 	const [open, setOpen] = useState("");
 
-	const createForm = useForm({
+	const createVehicleForm = useForm({
 		initialValues: {
 			user_id: "",
 			brand: "",
@@ -49,23 +51,48 @@ const DashboardPage = () => {
 		},
 	});
 
-	const handleNewVehicle = createForm.onSubmit((values) => {
-		createVehicle(values).then((response) => {
-			registerKm({ vehicle_id: response.id, km: values.current_kms });
-			setLoading(true);
-			setOpen("");
-			setTimeout(() => {
-				setList(!list);
-			}, 1000);
-			createForm.reset();
-		});
+	const addFuelForm = useForm({
+		initialValues: {
+			vehicle_id: vehicle.id,
+			km: 0,
+			paid: 0,
+			price: 0,
+		},
+	});
+
+	const handleNewVehicle = createVehicleForm.onSubmit((values) => {
+		values.user_id = user.id;
+		setLoading(true);
+		setOpen("");
+		createVehicle(values)
+			.then((response) => {
+				registerKm({ vehicle_id: response.id, km: values.current_kms });
+				setTimeout(() => {
+					setList(!list);
+				}, 1000);
+				createVehicleForm.reset();
+			})
+			.catch((error) => console.log(error));
+	});
+
+	const handleAddFuel = addFuelForm.onSubmit((values) => {
+		values.vehicle_id = vehicle.id;
+		setLoading(true);
+		setOpen("");
+		registerKm(values)
+			.then(() => {
+				setTimeout(() => {
+					setList(!list);
+				}, 1000);
+				addFuelForm.reset();
+			})
+			.catch((error) => console.log(error));
 	});
 
 	useEffect(() => {
 		if (userAuthenticated) {
 			listVehicles(user.id)
 				.then((response) => {
-					console.log("In");
 					const formatResponse = response.items.map((item) => ({
 						id: item.id,
 						nameplate: item.nameplate,
@@ -77,7 +104,6 @@ const DashboardPage = () => {
 					}));
 					setUserVehicles(formatResponse);
 					setLoading(false);
-					createForm.setFieldValue("user_id", user.id);
 				})
 				.catch((error) => console.log(error));
 		}
@@ -109,16 +135,55 @@ const DashboardPage = () => {
 			{/* TODO Separate modals in different components */}
 			<Modal
 				opened={open === "add-fuel"}
-				onClose={() => setOpen("")}
 				title="Add fuel register"
+				centered
+				onClose={() => {
+					setOpen("");
+					addFuelForm.reset();
+				}}
 			>
-				- vehicle_id <br />- km <br />- paid <br />- price
+				<Paper px={20} pb={20} radius="md">
+					<form onSubmit={handleAddFuel}>
+						{/* TODO Change to autocomplete with option to send text input if nothing found */}
+						<NumberInput
+							label="KM"
+							placeholder="000000"
+							required
+							allowNegative={false}
+							{...addFuelForm.getInputProps("km")}
+							mt={10}
+						/>
+						<NumberInput
+							label="Paid"
+							placeholder="123456"
+							required
+							allowNegative={false}
+							{...addFuelForm.getInputProps("paid")}
+							mt={10}
+						/>
+
+						<NumberInput
+							label="Price"
+							placeholder="1.234"
+							required
+							allowNegative={false}
+							{...addFuelForm.getInputProps("price")}
+							mt={10}
+						/>
+						<Button fullWidth mt="lg" type="submit" disabled={loading ?? true}>
+							{loading ? <Loader color="blue" size={"sm"} /> : "Add"}
+						</Button>
+					</form>
+				</Paper>
 			</Modal>
 			<Modal
 				opened={open === "add-new-car"}
-				onClose={() => setOpen("")}
 				title="Add new vehicle"
 				centered
+				onClose={() => {
+					setOpen("");
+					createVehicleForm.reset();
+				}}
 			>
 				<Paper px={20} pb={20} radius="md">
 					<form onSubmit={handleNewVehicle}>
@@ -127,20 +192,20 @@ const DashboardPage = () => {
 							label="Brand"
 							placeholder="Choose your brand"
 							required
-							{...createForm.getInputProps("brand")}
+							{...createVehicleForm.getInputProps("brand")}
 						/>
 						<TextInput
 							label="Nameplate"
 							placeholder="0000ABC"
 							required
-							{...createForm.getInputProps("nameplate")}
+							{...createVehicleForm.getInputProps("nameplate")}
 							mt={10}
 						/>
 						<ColorInput
 							label="Color"
 							placeholder="Vehicle color"
 							required
-							{...createForm.getInputProps("color")}
+							{...createVehicleForm.getInputProps("color")}
 							mt={10}
 						/>
 						<NumberInput
@@ -148,7 +213,7 @@ const DashboardPage = () => {
 							placeholder="123456"
 							required
 							allowNegative={false}
-							{...createForm.getInputProps("currentkms")}
+							{...createVehicleForm.getInputProps("currentkms")}
 							mt={10}
 						/>
 						<Button fullWidth mt="lg" type="submit" disabled={loading ?? true}>
