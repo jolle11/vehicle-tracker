@@ -1,14 +1,14 @@
 import { Container, Flex, Loader } from "@mantine/core";
 import { useAtom } from "jotai";
-import { vehicleAtom } from "../atoms/vehicle";
-import BrandLogo from "../components/BrandLogo";
+import { vehicleAtom } from "atoms/vehicle";
+import BrandLogo from "components/BrandLogo";
 import { useEffect, useState } from "react";
-import { useListKms } from "../hooks/vehicles/useVehicleActions";
-import { kmAtom } from "../atoms/km";
-import useDateFormat from "../hooks/utils/useDateFormat";
-import KmTable from "../components/KmTable";
-import KmLineChart from "../components/KmLineChart";
-import NameplateBadge from "../components/NameplateBadge";
+import { useListKms } from "hooks/vehicles/useVehicleActions";
+import { kmAtom } from "atoms/km";
+import useDateFormat from "hooks/utils/useDateFormat";
+import KmTable from "components/KmTable";
+import KmLineChart from "components/KmLineChart";
+import NameplateBadge from "components/NameplateBadge";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);

@@ -1,5 +1,5 @@
 import { Paper, Text } from "@mantine/core";
-import useCapitalizeFirstLetter from "../hooks/utils/useCapitalizeFirstLetter";
+import useCapitalizeFirstLetter from "hooks/utils/useCapitalizeFirstLetter";
 
 interface ChartTooltipProps {
 	label: string;

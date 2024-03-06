@@ -1,5 +1,5 @@
 import { LineChart } from "@mantine/charts";
-import { IKm } from "../atoms/km";
+import { IKm } from "atoms/km";
 import CustomChartTooltip from "./CustomChartTooltip";
 
 const KmLineChart = ({ kms }: { kms: IKm[] }) => {

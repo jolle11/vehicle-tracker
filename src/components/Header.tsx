@@ -18,9 +18,9 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { Car, HalfMoon, SunLight } from "iconoir-react";
 import { Link, useNavigate } from "react-router-dom";
-import { userAuthenticatedAtom } from "../atoms/auth";
+import { userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
-import useLogout from "../hooks/auth/useLogout";
+import useLogout from "hooks/auth/useLogout";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =

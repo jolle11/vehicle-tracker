@@ -1,5 +1,5 @@
-import { ICreateVehicle, IRegisterKms } from "../../atoms/vehicle";
-import { useConnectDB } from "../auth/useConnectDB";
+import { ICreateVehicle, IRegisterKms } from "atoms/vehicle";
+import { useConnectDB } from "hooks/auth/useConnectDB";
 
 export const useListVehicles = () => {
 	const pb = useConnectDB();

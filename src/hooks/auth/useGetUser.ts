@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { userAtom } from "../../atoms/user";
-import { userAuthenticatedAtom } from "../../atoms/auth";
+import { userAtom } from "atoms/user";
+import { userAuthenticatedAtom } from "atoms/auth";
 
 export const useGetUser = () => {
 	const [, setUser] = useAtom(userAtom);

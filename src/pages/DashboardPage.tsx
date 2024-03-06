@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { userAtom, userVehiclesAtom } from "../atoms/user";
+import { userAtom, userVehiclesAtom } from "atoms/user";
 import {
 	Container,
 	Title,
@@ -12,18 +12,18 @@ import {
 	ColorInput,
 	NumberInput,
 } from "@mantine/core";
-import { userAuthenticatedAtom } from "../atoms/auth";
+import { userAuthenticatedAtom } from "atoms/auth";
 import { useEffect, useState } from "react";
 import {
 	useCreateVehicle,
 	useListVehicles,
 	useRegisterKms,
-} from "../hooks/vehicles/useVehicleActions";
-import VehicleCard from "../components/VehicleCard";
-import useNumberFormat from "../hooks/utils/useNumberFormat";
-import NewVehicleCard from "../components/NewVehicleCard";
+} from "hooks/vehicles/useVehicleActions";
+import VehicleCard from "components/VehicleCard";
+import useNumberFormat from "hooks/utils/useNumberFormat";
+import NewVehicleCard from "components/NewVehicleCard";
 import { useForm } from "@mantine/form";
-import { vehicleAtom } from "../atoms/vehicle";
+import { vehicleAtom } from "atoms/vehicle";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);

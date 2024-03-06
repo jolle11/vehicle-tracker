@@ -13,13 +13,13 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../hooks/auth/useLogin";
+import { useLogin } from "hooks/auth/useLogin";
 import { Check, Xmark } from "iconoir-react";
-import { tokenAtom, userAuthenticatedAtom } from "../atoms/auth";
+import { tokenAtom, userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
-import { useNotifications } from "../hooks/notifications/useNotifications";
+import { useNotifications } from "hooks/notifications/useNotifications";
 import { useState } from "react";
-import { userAtom } from "../atoms/user";
+import { userAtom } from "atoms/user";
 
 const LoginPage = () => {
 	const navigate = useNavigate();

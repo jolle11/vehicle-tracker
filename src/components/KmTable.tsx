@@ -1,5 +1,5 @@
 import { Table } from "@mantine/core";
-import { IKm } from "../atoms/km";
+import { IKm } from "atoms/km";
 
 const KmTable = ({ kms }: { kms: IKm[] }) => {
 	return (
