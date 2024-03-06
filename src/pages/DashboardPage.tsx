@@ -1,17 +1,6 @@
 import { useAtom } from "jotai";
 import { userAtom, userVehiclesAtom } from "atoms/user";
-import {
-	Container,
-	Title,
-	Flex,
-	Loader,
-	Modal,
-	Button,
-	Paper,
-	TextInput,
-	ColorInput,
-	NumberInput,
-} from "@mantine/core";
+import { Container, Title, Flex, Loader } from "@mantine/core";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useEffect, useState } from "react";
 import {
@@ -24,6 +13,8 @@ import useNumberFormat from "hooks/utils/useNumberFormat";
 import NewVehicleCard from "components/NewVehicleCard";
 import { useForm } from "@mantine/form";
 import { vehicleAtom } from "atoms/vehicle";
+import NewVehicleModal from "components/NewVehicleModal";
+import AddFuelModal from "components/AddFuelModal";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
@@ -47,16 +38,16 @@ const DashboardPage = () => {
 			brand: "",
 			nameplate: "",
 			color: "",
-			current_kms: 0,
+			current_kms: "",
 		},
 	});
 
 	const addFuelForm = useForm({
 		initialValues: {
 			vehicle_id: vehicle.id,
-			km: 0,
-			paid: 0,
-			price: 0,
+			km: "",
+			paid: "",
+			price: "",
 		},
 	});
 
@@ -132,96 +123,20 @@ const DashboardPage = () => {
 					)}
 				</Flex>
 			</Flex>
-			{/* TODO Separate modals in different components */}
-			<Modal
-				opened={open === "add-fuel"}
-				title="Add fuel register"
-				centered
-				onClose={() => {
-					setOpen("");
-					addFuelForm.reset();
-				}}
-			>
-				<Paper px={20} pb={20} radius="md">
-					<form onSubmit={handleAddFuel}>
-						{/* TODO Change to autocomplete with option to send text input if nothing found */}
-						<NumberInput
-							label="KM"
-							placeholder="000000"
-							required
-							allowNegative={false}
-							{...addFuelForm.getInputProps("km")}
-							mt={10}
-						/>
-						<NumberInput
-							label="Paid"
-							placeholder="123456"
-							required
-							allowNegative={false}
-							{...addFuelForm.getInputProps("paid")}
-							mt={10}
-						/>
-
-						<NumberInput
-							label="Price"
-							placeholder="1.234"
-							required
-							allowNegative={false}
-							{...addFuelForm.getInputProps("price")}
-							mt={10}
-						/>
-						<Button fullWidth mt="lg" type="submit" disabled={loading ?? true}>
-							{loading ? <Loader color="blue" size={"sm"} /> : "Add"}
-						</Button>
-					</form>
-				</Paper>
-			</Modal>
-			<Modal
-				opened={open === "add-new-car"}
-				title="Add new vehicle"
-				centered
-				onClose={() => {
-					setOpen("");
-					createVehicleForm.reset();
-				}}
-			>
-				<Paper px={20} pb={20} radius="md">
-					<form onSubmit={handleNewVehicle}>
-						{/* TODO Change to autocomplete with option to send text input if nothing found */}
-						<TextInput
-							label="Brand"
-							placeholder="Choose your brand"
-							required
-							{...createVehicleForm.getInputProps("brand")}
-						/>
-						<TextInput
-							label="Nameplate"
-							placeholder="0000ABC"
-							required
-							{...createVehicleForm.getInputProps("nameplate")}
-							mt={10}
-						/>
-						<ColorInput
-							label="Color"
-							placeholder="Vehicle color"
-							required
-							{...createVehicleForm.getInputProps("color")}
-							mt={10}
-						/>
-						<NumberInput
-							label="Current Kms"
-							placeholder="123456"
-							required
-							allowNegative={false}
-							{...createVehicleForm.getInputProps("currentkms")}
-							mt={10}
-						/>
-						<Button fullWidth mt="lg" type="submit" disabled={loading ?? true}>
-							{loading ? <Loader color="blue" size={"sm"} /> : "Add"}
-						</Button>
-					</form>
-				</Paper>
-			</Modal>
+			<AddFuelModal
+				open={open}
+				setOpen={setOpen}
+				addFuelForm={addFuelForm}
+				handleAddFuel={handleAddFuel}
+				loading={loading}
+			/>
+			<NewVehicleModal
+				open={open}
+				setOpen={setOpen}
+				createVehicleForm={createVehicleForm}
+				handleNewVehicle={handleNewVehicle}
+				loading={loading}
+			/>
 		</Container>
 	) : (
 		<Container size={"lg"} my={"xl"}>
