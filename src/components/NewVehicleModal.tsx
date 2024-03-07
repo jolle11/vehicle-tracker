@@ -6,15 +6,18 @@ import {
 	NumberInput,
 	Button,
 	Loader,
+	Autocomplete,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { SetStateAction, Dispatch } from "react";
+import { renderAutocompleteOption } from "./RenderBrandsAutocomplete";
+import brands from "assets/brands.json";
 
 interface INewVehicleModal {
 	open: string;
 	setOpen: Dispatch<SetStateAction<string>>;
 	createVehicleForm: ReturnType<typeof useForm>;
-	handleNewVehicle: (values: any) => void; // Asegúrate de definir correctamente el tipo de values aquí
+	handleNewVehicle: (values: any) => void;
 	loading?: boolean;
 }
 
@@ -37,11 +40,11 @@ const NewVehicleModal = ({
 		>
 			<Paper px={20} pb={20} radius="md">
 				<form onSubmit={handleNewVehicle}>
-					{/* TODO Change to autocomplete with option to send text input if nothing found */}
-					<TextInput
+					<Autocomplete
 						label="Brand"
-						placeholder="Choose your brand"
-						required
+						placeholder="Choose or write your brand"
+						data={brands}
+						renderOption={renderAutocompleteOption}
 						{...createVehicleForm.getInputProps("brand")}
 					/>
 					<TextInput
