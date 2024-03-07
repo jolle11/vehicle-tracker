@@ -6,7 +6,7 @@ interface IAddFuelModal {
 	open: string;
 	setOpen: Dispatch<SetStateAction<string>>;
 	addFuelForm: ReturnType<typeof useForm>;
-	handleAddFuel: (values: any) => void; // Asegúrate de definir correctamente el tipo de values aquí
+	handleAddFuel: (values: any) => void;
 	loading?: boolean;
 }
 
@@ -29,7 +29,6 @@ const AddFuelModal = ({
 		>
 			<Paper px={20} pb={20} radius="md">
 				<form onSubmit={handleAddFuel}>
-					{/* TODO Change to autocomplete with option to send text input if nothing found */}
 					<NumberInput
 						label="KM"
 						placeholder="000000"
