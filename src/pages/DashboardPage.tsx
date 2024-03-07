@@ -8,13 +8,13 @@ import {
 	useListVehicles,
 	useRegisterKms,
 } from "hooks/vehicles/useVehicleActions";
-import VehicleCard from "components/VehicleCard";
+import VehicleCard from "components/Cards/VehicleCard";
 import useNumberFormat from "hooks/utils/useNumberFormat";
-import NewVehicleCard from "components/NewVehicleCard";
+import NewVehicleCard from "components/Cards/NewVehicleCard";
 import { useForm } from "@mantine/form";
 import { vehicleAtom } from "atoms/vehicle";
-import NewVehicleModal from "components/NewVehicleModal";
-import AddFuelModal from "components/AddFuelModal";
+import NewVehicleModal from "components/Modals/NewVehicleModal";
+import AddFuelModal from "components/Modals/AddFuelModal";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
