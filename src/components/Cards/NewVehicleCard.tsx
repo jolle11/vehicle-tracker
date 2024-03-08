@@ -13,6 +13,7 @@ const NewVehicleCard = ({
 			style={{
 				display: "flex",
 				justifyContent: "center",
+				background: "transparent",
 			}}
 		>
 			<Group>
