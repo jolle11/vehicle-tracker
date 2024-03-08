@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header";
-import DashboardPage from "./pages/DashboardPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+import { Header } from "components/Header";
+import DashboardPage from "pages/DashboardPage";
+import LoginPage from "pages/LoginPage";
+import RegisterPage from "pages/RegisterPage";
 import { useEffect } from "react";
-import { useGetUser } from "./hooks/auth/useGetUser";
-import VehiclePage from "./pages/VehiclePage";
+import { useGetUser } from "hooks/auth/useGetUser";
+import VehiclePage from "pages/VehiclePage";
+import { Footer } from "components/Footer";
 
 function App() {
 	const setUser = useGetUser();
@@ -15,9 +16,9 @@ function App() {
 	}, []);
 
 	return (
-		<div className="app">
-			<Router>
-				<Header />
+		<Router>
+			<Header />
+			<div className="app">
 				<Routes>
 					<Route path="/" element={<DashboardPage />} />
 					<Route path="/dashboard" element={<DashboardPage />} />
@@ -28,8 +29,9 @@ function App() {
 						element={<VehiclePage />}
 					/>
 				</Routes>
-			</Router>
-		</div>
+			</div>
+			<Footer />
+		</Router>
 	);
 }
 
