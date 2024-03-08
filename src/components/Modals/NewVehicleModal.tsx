@@ -43,6 +43,7 @@ const NewVehicleModal = ({
 					<Autocomplete
 						label="Brand"
 						placeholder="Choose or write your brand"
+						data-autofocus
 						data={brands}
 						renderOption={renderAutocompleteOption}
 						{...createVehicleForm.getInputProps("brand")}

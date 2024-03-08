@@ -33,6 +33,7 @@ const AddFuelModal = ({
 						label="KM"
 						placeholder="000000"
 						required
+						data-autofocus
 						allowNegative={false}
 						{...addFuelForm.getInputProps("km")}
 						mt={10}
