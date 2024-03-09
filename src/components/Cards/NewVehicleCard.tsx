@@ -7,9 +7,6 @@ const NewVehicleCard = ({
 	return (
 		<Card
 			w={220}
-			onClick={(event) => {
-				console.log(event);
-			}}
 			style={{
 				display: "flex",
 				justifyContent: "center",
