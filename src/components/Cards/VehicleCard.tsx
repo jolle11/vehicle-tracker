@@ -1,6 +1,6 @@
 import { Badge, Button, Card, Group, Title, Text } from "@mantine/core";
 import { GasTankDroplet, Trash } from "iconoir-react";
-import BrandLogo from "../BrandLogo";
+import BrandLogo from "components/BrandLogo";
 import { IVehicle, vehicleAtom } from "atoms/vehicle";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";

@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { SetStateAction, Dispatch } from "react";
-import { renderAutocompleteOption } from "../RenderBrandsAutocomplete";
+import { renderAutocompleteOption } from "components/RenderBrandsAutocomplete";
 import brands from "assets/brands.json";
 
 interface INewVehicleModal {
