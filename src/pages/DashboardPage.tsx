@@ -68,6 +68,11 @@ const DashboardPage = () => {
 					setList(!list);
 				}, 1000);
 				createVehicleForm.reset();
+				notification({
+					type: "success",
+					message: "Vehicle created successfully!",
+					icon: <Check />,
+				});
 			})
 			.catch((error) => console.log(error));
 	});
@@ -82,6 +87,11 @@ const DashboardPage = () => {
 					setList(!list);
 				}, 1000);
 				addFuelForm.reset();
+				notification({
+					type: "success",
+					message: "Km added successfully!",
+					icon: <Check />,
+				});
 			})
 			.catch((error) => console.log(error));
 	});
