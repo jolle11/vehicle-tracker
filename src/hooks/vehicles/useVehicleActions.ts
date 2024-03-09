@@ -27,6 +27,13 @@ export const useCreateVehicle = () => {
 	};
 };
 
+export const useDeleteVehicle = () => {
+	const pb = useConnectDB();
+	return async (vehicleId: string) => {
+		return (await pb).collection("vehicles").delete(vehicleId);
+	};
+};
+
 export const useRegisterKms = () => {
 	const pb = useConnectDB();
 	return async (data: IRegisterKms) => {

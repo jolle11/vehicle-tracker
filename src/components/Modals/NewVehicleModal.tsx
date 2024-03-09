@@ -30,7 +30,7 @@ const NewVehicleModal = ({
 }: INewVehicleModal) => {
 	return (
 		<Modal
-			opened={open === "add-new-car"}
+			opened={open === "add-new-vehicle"}
 			title="Add new vehicle"
 			centered
 			onClose={() => {

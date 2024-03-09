@@ -22,7 +22,7 @@ const NewVehicleCard = ({
 					variant="outline"
 					fullWidth
 					onClick={(event) => {
-						openModal("add-new-car");
+						openModal("add-new-vehicle");
 						event.stopPropagation();
 					}}
 				>

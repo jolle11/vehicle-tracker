@@ -5,6 +5,7 @@ import { userAuthenticatedAtom } from "atoms/auth";
 import { useEffect, useState } from "react";
 import {
 	useCreateVehicle,
+	useDeleteVehicle,
 	useListVehicles,
 	useRegisterKms,
 } from "hooks/vehicles/useVehicleActions";
@@ -15,6 +16,9 @@ import { useForm } from "@mantine/form";
 import { vehicleAtom } from "atoms/vehicle";
 import NewVehicleModal from "components/Modals/NewVehicleModal";
 import AddFuelModal from "components/Modals/AddFuelModal";
+import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
+import { useNotifications } from "hooks/notifications/useNotifications";
+import { Check } from "iconoir-react";
 
 const DashboardPage = () => {
 	const [user] = useAtom(userAtom);
@@ -26,6 +30,8 @@ const DashboardPage = () => {
 	const mediaFormat = useNumberFormat();
 	const createVehicle = useCreateVehicle();
 	const registerKm = useRegisterKms();
+	const deleteVehicle = useDeleteVehicle();
+	const notification = useNotifications();
 
 	const [loading, setLoading] = useState(true);
 	const [list, setList] = useState(false);
@@ -79,6 +85,22 @@ const DashboardPage = () => {
 			})
 			.catch((error) => console.log(error));
 	});
+
+	const handleDeleteVehicle = () => {
+		setLoading(true);
+		setOpen("");
+		deleteVehicle(vehicle.id)
+			.then(() => {
+				notification({
+					type: "success",
+					message: "Vehicle deleted successfully!",
+					icon: <Check />,
+				});
+				setUserVehicles(userVehicles.filter((item) => item.id !== vehicle.id));
+				setLoading(false);
+			})
+			.catch((error) => console.log(error));
+	};
 
 	useEffect(() => {
 		if (userAuthenticated) {
@@ -135,6 +157,12 @@ const DashboardPage = () => {
 				setOpen={setOpen}
 				createVehicleForm={createVehicleForm}
 				handleNewVehicle={handleNewVehicle}
+				loading={loading}
+			/>
+			<DeleteVehicleModal
+				open={open}
+				setOpen={setOpen}
+				handleDeleteVehicle={handleDeleteVehicle}
 				loading={loading}
 			/>
 		</Container>

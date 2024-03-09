@@ -1,5 +1,5 @@
 import { Badge, Button, Card, Group, Title, Text } from "@mantine/core";
-import { GasTankDroplet } from "iconoir-react";
+import { GasTankDroplet, Trash } from "iconoir-react";
 import BrandLogo from "../BrandLogo";
 import { IVehicle, vehicleAtom } from "atoms/vehicle";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +55,6 @@ const VehicleCard = ({
 				<Button
 					my="sm"
 					variant="solid"
-					fullWidth
 					onClick={(event) => {
 						setVehicle(vehicle);
 						openModal("add-fuel");
@@ -64,6 +63,18 @@ const VehicleCard = ({
 				>
 					Add &nbsp;
 					<GasTankDroplet />
+				</Button>
+				<Button
+					my="sm"
+					variant="light"
+					color="red.5"
+					onClick={(event) => {
+						setVehicle(vehicle);
+						openModal("delete-vehicle");
+						event.stopPropagation();
+					}}
+				>
+					<Trash />
 				</Button>
 			</Group>
 		</Card>
