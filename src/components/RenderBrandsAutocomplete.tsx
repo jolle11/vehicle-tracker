@@ -1,5 +1,5 @@
 import { AutocompleteProps, Group, Text } from "@mantine/core";
-import BrandLogo from "./BrandLogo";
+import BrandLogo from "components/BrandLogo";
 
 interface ICarBrands {
 	name: string;
@@ -755,7 +755,7 @@ const brandsData: Record<string, ICarBrands> = {
 		name: "Jensen",
 		slug: "jensen",
 	},
-	Jawa: {
+	Skoda: {
 		name: "Jawa",
 		slug: "jawa",
 	},
