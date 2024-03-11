@@ -1,6 +1,6 @@
 import { Modal, Paper, NumberInput, Button, Loader } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { Dispatch, SetStateAction } from "react";
+import type { useForm } from "@mantine/form";
+import type { Dispatch, SetStateAction } from "react";
 
 interface IAddFuelModal {
 	open: string;

@@ -1,4 +1,5 @@
-import { AutocompleteProps, Group, Text } from "@mantine/core";
+import type { AutocompleteProps } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import BrandLogo from "components/BrandLogo";
 
 interface ICarBrands {

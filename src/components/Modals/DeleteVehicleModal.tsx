@@ -1,5 +1,5 @@
 import { Modal, Paper, Button, Loader, Text } from "@mantine/core";
-import { SetStateAction, Dispatch } from "react";
+import type { SetStateAction, Dispatch } from "react";
 
 interface IDeleteVehicleModal {
 	open: string;

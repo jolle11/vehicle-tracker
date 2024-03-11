@@ -8,8 +8,8 @@ import {
 	Loader,
 	Autocomplete,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { SetStateAction, Dispatch } from "react";
+import type { useForm } from "@mantine/form";
+import type { SetStateAction, Dispatch } from "react";
 import { renderAutocompleteOption } from "components/RenderBrandsAutocomplete";
 import brands from "assets/brands.json";
 

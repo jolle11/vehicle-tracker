@@ -1,5 +1,5 @@
 import { Card, Button, Group } from "@mantine/core";
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 const NewVehicleCard = ({
 	openModal,

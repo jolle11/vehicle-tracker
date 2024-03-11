@@ -1,10 +1,11 @@
 import { Badge, Button, Card, Group, Title, Text } from "@mantine/core";
 import { GasTankDroplet, Trash } from "iconoir-react";
 import BrandLogo from "components/BrandLogo";
-import { IVehicle, vehicleAtom } from "atoms/vehicle";
+import type { IVehicle } from "atoms/vehicle";
+import { vehicleAtom } from "atoms/vehicle";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 const VehicleCard = ({
 	vehicle,
