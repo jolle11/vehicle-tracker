@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { userAtom, userVehiclesAtom } from "atoms/user";
-import { Container, Title, Flex, Loader } from "@mantine/core";
+import { Container, Title, Flex, Loader, Group } from "@mantine/core";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useEffect, useState } from "react";
 import {
@@ -136,22 +136,24 @@ const DashboardPage = () => {
 		<Container size={"lg"} my={"xl"}>
 			<Flex my={"xl"} align={"center"} direction={"column"} wrap={"wrap"}>
 				<Title>Hello {user.username}!</Title>
-				<Flex gap={"md"} my={"xl"} justify={"center"} wrap={"wrap"}>
+				<Flex gap={"md"} my={"xs"} justify={"center"} wrap={"wrap"}>
 					{loading && <Loader size={"xl"} mt={"xl"} />}
 					{!(loading || userVehicles.length) && (
 						<NewVehicleCard openModal={setOpen} />
 					)}
 					{!loading && !!userVehicles.length && (
-						<>
-							{userVehicles.map((vehicle) => (
-								<VehicleCard
-									key={vehicle.id}
-									vehicle={vehicle}
-									openModal={setOpen}
-								/>
-							))}
+						<Flex direction={"column"} justify={"center"} align={"center"}>
 							<NewVehicleCard openModal={setOpen} />
-						</>
+							<Group justify="center">
+								{userVehicles.map((vehicle) => (
+									<VehicleCard
+										key={vehicle.id}
+										vehicle={vehicle}
+										openModal={setOpen}
+									/>
+								))}
+							</Group>
+						</Flex>
 					)}
 				</Flex>
 			</Flex>
