@@ -55,7 +55,7 @@ const VehiclePage = () => {
 			</Flex>
 			<Container size={"sm"} my={"xl"}>
 				{!loading ? (
-					<KmLineChart kms={kms} />
+					<KmLineChart kms={kms} media_paid={vehicle.media_paid} />
 				) : (
 					<Flex justify="center" align={"center"} direction={"column"}>
 						<Loader size={"xl"} mt={"xl"} color={"yellow.9"} />
