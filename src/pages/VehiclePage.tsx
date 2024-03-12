@@ -1,4 +1,4 @@
-import { Container, Flex, Loader } from "@mantine/core";
+import { Button, Container, Flex, Loader, Menu } from "@mantine/core";
 import { useAtom } from "jotai";
 import { vehicleAtom } from "atoms/vehicle";
 import BrandLogo from "components/BrandLogo";
@@ -9,6 +9,7 @@ import useDateFormat from "hooks/utils/useDateFormat";
 import KmTable from "components/KmTable";
 import KmLineChart from "components/KmLineChart";
 import NameplateBadge from "components/NameplateBadge";
+import { MenuScale, Trash } from "iconoir-react";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);
@@ -51,7 +52,22 @@ const VehiclePage = () => {
 				<Container size={"md"}>
 					<BrandLogo brand={vehicle.brand} page={true} />
 				</Container>
-				<NameplateBadge nameplate={vehicle.nameplate} />
+				<Flex align={"center"} gap={5}>
+					<NameplateBadge nameplate={vehicle.nameplate} />\
+					{/* TODO Separate menu in a different component */}
+					<Menu position="bottom" shadow="md">
+						<Menu.Target>
+							<Button variant="transparent" p={5} color="gray">
+								<MenuScale />
+							</Button>
+						</Menu.Target>
+						<Menu.Dropdown>
+							<Menu.Item color="red" leftSection={<Trash />}>
+								Delete
+							</Menu.Item>
+						</Menu.Dropdown>
+					</Menu>
+				</Flex>
 			</Flex>
 			<Container size={"sm"} my={"xl"}>
 				{!loading ? (
