@@ -53,7 +53,7 @@ const VehiclePage = () => {
 					<BrandLogo brand={vehicle.brand} page={true} />
 				</Container>
 				<Flex align={"center"} gap={5}>
-					<NameplateBadge nameplate={vehicle.nameplate} />\
+					<NameplateBadge nameplate={vehicle.nameplate} />
 					{/* TODO Separate menu in a different component */}
 					<Menu position="bottom" shadow="md">
 						<Menu.Target>
