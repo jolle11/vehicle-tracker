@@ -14,6 +14,7 @@ import { useNotifications } from "hooks/notifications/useNotifications";
 import { userVehiclesAtom } from "atoms/user";
 import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
 import { useNavigate } from "react-router-dom";
+import VehiclePageMenu from "components/Menus/VehiclePageMenu";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);
@@ -80,23 +81,7 @@ const VehiclePage = () => {
 				</Container>
 				<Flex align={"center"} gap={5}>
 					<NameplateBadge nameplate={vehicle.nameplate} />
-					{/* TODO Separate menu in a different component */}
-					<Menu position="bottom" shadow="md">
-						<Menu.Target>
-							<Button variant="transparent" p={5} color="gray">
-								<MenuScale />
-							</Button>
-						</Menu.Target>
-						<Menu.Dropdown>
-							<Menu.Item
-								color="red"
-								leftSection={<Trash />}
-								onClick={() => setOpen("delete-vehicle")}
-							>
-								Delete
-							</Menu.Item>
-						</Menu.Dropdown>
-					</Menu>
+					<VehiclePageMenu setOpen={setOpen} />
 				</Flex>
 			</Flex>
 			<Container size={"sm"} my={"xl"}>
