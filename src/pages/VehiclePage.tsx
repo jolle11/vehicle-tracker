@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Loader, Menu } from "@mantine/core";
+import { Container, Flex, Loader } from "@mantine/core";
 import { useAtom } from "jotai";
 import { vehicleAtom } from "atoms/vehicle";
 import BrandLogo from "components/BrandLogo";
@@ -9,7 +9,7 @@ import useDateFormat from "hooks/utils/useDateFormat";
 import KmTable from "components/KmTable";
 import KmLineChart from "components/KmLineChart";
 import NameplateBadge from "components/NameplateBadge";
-import { Check, MenuScale, Trash } from "iconoir-react";
+import { Check } from "iconoir-react";
 import { useNotifications } from "hooks/notifications/useNotifications";
 import { userVehiclesAtom } from "atoms/user";
 import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
