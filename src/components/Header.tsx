@@ -1,5 +1,4 @@
 import {
-	ActionIcon,
 	Box,
 	Burger,
 	Button,
@@ -16,11 +15,12 @@ import {
 	useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Car, HalfMoon, SunLight } from "iconoir-react";
+import { HalfMoon, Parking, ProfileCircle, SunLight } from "iconoir-react";
 import { Link, useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
 import useLogout from "hooks/auth/useLogout";
+import { userAtom } from "atoms/user";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -31,6 +31,8 @@ export function Header() {
 	const computedColorScheme = useComputedColorScheme("light", {
 		getInitialValueInEffect: true,
 	});
+
+	const [user] = useAtom(userAtom);
 
 	const navigate = useNavigate();
 
@@ -45,19 +47,19 @@ export function Header() {
 					<Group justify="space-between" h="100%" py={12}>
 						<Group>
 							<Button onClick={() => navigate("/dashboard")}>
-								<Car />
+								<Parking />
 							</Button>
 						</Group>
-						<Group visibleFrom="sm">
-							<ActionIcon
+						<Button.Group visibleFrom="sm">
+							<Button
 								onClick={() =>
 									setColorScheme(
 										computedColorScheme === "light" ? "dark" : "light",
 									)
 								}
-								variant="default"
-								size="lg"
-								radius="xl"
+								variant="light"
+								color="yellow"
+								p={6}
 								aria-label="Toggle color scheme"
 							>
 								{computedColorScheme === "light" ? (
@@ -65,12 +67,20 @@ export function Header() {
 								) : (
 									<HalfMoon fontSize={14} />
 								)}
-							</ActionIcon>
+							</Button>
 							{userAuthenticated ? (
 								// TODO Create function for logout with notification and deletion from local storage
-								<Button color="red.9" variant="light" onClick={logout}>
-									Logout
-								</Button>
+								<>
+									<Button
+										variant="light"
+										onClick={() => navigate(`/${user.username}`)}
+									>
+										<ProfileCircle />
+									</Button>
+									<Button color="red.9" variant="light" onClick={logout}>
+										Logout
+									</Button>
+								</>
 							) : (
 								<>
 									<Button variant="default" onClick={() => navigate("/login")}>
@@ -81,7 +91,7 @@ export function Header() {
 									</Button>
 								</>
 							)}
-						</Group>
+						</Button.Group>
 
 						<Burger
 							opened={drawerOpened}
@@ -117,7 +127,7 @@ export function Header() {
 					</Collapse>
 
 					<Divider my="sm" />
-
+					{/* TODO Add theme button to drawer */}
 					<Group justify="center" grow pb="xl" px="md">
 						{userAuthenticated ? (
 							// TODO Create function for logout with notification and deletion from local storage
