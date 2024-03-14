@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useGetUser } from "hooks/auth/useGetUser";
 import VehiclePage from "pages/VehiclePage";
 import { Footer } from "components/Footer";
+import UserPage from "pages/UserPage";
 
 function App() {
 	const setUser = useGetUser();
@@ -24,6 +25,7 @@ function App() {
 					<Route path="/dashboard" element={<DashboardPage />} />
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
+					<Route path="/:username" element={<UserPage />} />
 					<Route
 						path="/:vehicleBrand/:vehicleNameplate"
 						element={<VehiclePage />}
