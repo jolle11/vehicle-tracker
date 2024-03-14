@@ -3,22 +3,48 @@ import { useAtom } from "jotai";
 import { vehicleAtom } from "atoms/vehicle";
 import BrandLogo from "components/BrandLogo";
 import { useEffect, useState } from "react";
-import { useListKms } from "hooks/vehicles/useVehicleActions";
+import { useDeleteVehicle, useListKms } from "hooks/vehicles/useVehicleActions";
 import { kmAtom } from "atoms/km";
 import useDateFormat from "hooks/utils/useDateFormat";
 import KmTable from "components/KmTable";
 import KmLineChart from "components/KmLineChart";
 import NameplateBadge from "components/NameplateBadge";
-import { MenuScale, Trash } from "iconoir-react";
+import { Check, MenuScale, Trash } from "iconoir-react";
+import { useNotifications } from "hooks/notifications/useNotifications";
+import { userVehiclesAtom } from "atoms/user";
+import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
+import { useNavigate } from "react-router-dom";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);
 	const [kms, setKms] = useAtom(kmAtom);
+	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
 
 	const listKm = useListKms();
 	const dateFormat = useDateFormat();
+	const deleteVehicle = useDeleteVehicle();
+	const notification = useNotifications();
+	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(true);
+	const [open, setOpen] = useState("");
+
+	const handleDeleteVehicle = () => {
+		setLoading(true);
+		setOpen("");
+		deleteVehicle(vehicle.id)
+			.then(() => {
+				notification({
+					type: "success",
+					message: "Vehicle deleted successfully!",
+					icon: <Check />,
+				});
+				setUserVehicles(userVehicles.filter((item) => item.id !== vehicle.id));
+				setLoading(false);
+				navigate("/dashboard");
+			})
+			.catch((error) => console.log(error));
+	};
 
 	useEffect(() => {
 		const selectedVehicle = JSON.parse(
@@ -62,7 +88,11 @@ const VehiclePage = () => {
 							</Button>
 						</Menu.Target>
 						<Menu.Dropdown>
-							<Menu.Item color="red" leftSection={<Trash />}>
+							<Menu.Item
+								color="red"
+								leftSection={<Trash />}
+								onClick={() => setOpen("delete-vehicle")}
+							>
 								Delete
 							</Menu.Item>
 						</Menu.Dropdown>
@@ -87,6 +117,12 @@ const VehiclePage = () => {
 					</Flex>
 				)}
 			</Container>
+			<DeleteVehicleModal
+				open={open}
+				setOpen={setOpen}
+				handleDeleteVehicle={handleDeleteVehicle}
+				loading={loading}
+			/>
 		</Container>
 	);
 };
