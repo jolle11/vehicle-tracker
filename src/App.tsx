@@ -8,9 +8,13 @@ import { useGetUser } from "hooks/auth/useGetUser";
 import VehiclePage from "pages/VehiclePage";
 import { Footer } from "components/Footer";
 import UserPage from "pages/UserPage";
+import { useAtom } from "jotai";
+import { userAuthenticatedAtom } from "atoms/auth";
 
 function App() {
 	const setUser = useGetUser();
+
+	const [userAuthenticated] = useAtom(userAuthenticatedAtom);
 
 	useEffect(() => {
 		setUser();
@@ -25,11 +29,15 @@ function App() {
 					<Route path="/dashboard" element={<DashboardPage />} />
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
-					<Route path="/:username" element={<UserPage />} />
-					<Route
-						path="/:vehicleBrand/:vehicleNameplate"
-						element={<VehiclePage />}
-					/>
+					{userAuthenticated && (
+						<>
+							<Route path="/:username" element={<UserPage />} />
+							<Route
+								path="/:vehicleBrand/:vehicleNameplate"
+								element={<VehiclePage />}
+							/>
+						</>
+					)}
 				</Routes>
 			</div>
 			<Footer />
