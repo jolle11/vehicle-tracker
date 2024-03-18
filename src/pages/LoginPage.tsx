@@ -49,6 +49,9 @@ const LoginPage = () => {
 					id: response.record.id,
 					username: response.record.username,
 					email: response.record.email,
+					name: response.record.name,
+					surname: response.record.surname,
+					created: response.record.created,
 				});
 				notification({
 					type: "success",
