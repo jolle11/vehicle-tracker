@@ -83,7 +83,7 @@ export function Header() {
 								</>
 							) : (
 								<>
-									<Button variant="default" onClick={() => navigate("/login")}>
+									<Button variant="light" onClick={() => navigate("/login")}>
 										Log in
 									</Button>
 									<Button onClick={() => navigate("/register")}>
@@ -137,7 +137,7 @@ export function Header() {
 						) : (
 							<>
 								<Button
-									variant="default"
+									variant="light"
 									onClick={() => {
 										navigate("/login");
 										closeDrawer();
