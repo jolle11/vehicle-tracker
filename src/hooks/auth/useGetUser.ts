@@ -16,6 +16,9 @@ export const useGetUser = () => {
 				id: localUser?.id,
 				username: localUser?.username,
 				email: localUser?.email,
+				name: localUser?.name,
+				surname: localUser?.surname,
+				created: localUser?.created,
 			});
 			setUserAuthenticated(true);
 		}
