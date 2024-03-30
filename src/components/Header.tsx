@@ -19,7 +19,7 @@ import { HalfMoon, Parking, ProfileCircle, SunLight } from "iconoir-react";
 import { Link, useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
-import useLogout from "hooks/auth/useLogout";
+import { useLogout } from "hooks/auth/useLogout";
 import { userAtom } from "atoms/user";
 
 export function Header() {
@@ -46,7 +46,11 @@ export function Header() {
 				<Container size={"lg"}>
 					<Group justify="space-between" h="100%" py={12}>
 						<Group>
-							<Button onClick={() => navigate("/dashboard")}>
+							<Button
+								onClick={() =>
+									navigate(`${userAuthenticated ? "/dashboard" : "/"}`)
+								}
+							>
 								<Parking />
 							</Button>
 						</Group>
@@ -69,7 +73,6 @@ export function Header() {
 								)}
 							</Button>
 							{userAuthenticated ? (
-								// TODO Create function for logout with notification and deletion from local storage
 								<>
 									<Button
 										variant="light"

@@ -3,7 +3,7 @@ import { userAuthenticatedAtom } from "atoms/auth";
 import { userAtom, userVehiclesAtom } from "atoms/user";
 import { useNavigate } from "react-router-dom";
 
-const useLogout = () => {
+export const useLogout = () => {
 	const [, setUserAuthenticated] = useAtom(userAuthenticatedAtom);
 	const [, setUser] = useAtom(userAtom);
 	const [, setUserVehicles] = useAtom(userVehiclesAtom);
@@ -22,8 +22,6 @@ const useLogout = () => {
 		});
 		setUserVehicles([]);
 		localStorage.removeItem("pocketbase_auth");
-		navigate("/dashboard");
+		navigate("/");
 	};
 };
-
-export default useLogout;
