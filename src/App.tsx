@@ -26,11 +26,11 @@ function App() {
 			<div className="app">
 				<Routes>
 					<Route path="/" element={<DashboardPage />} />
-					<Route path="/dashboard" element={<DashboardPage />} />
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
 					{userAuthenticated && (
 						<>
+							<Route path="/dashboard" element={<DashboardPage />} />
 							<Route path="/:username" element={<UserPage />} />
 							<Route
 								path="/:vehicleBrand/:vehicleNameplate"
