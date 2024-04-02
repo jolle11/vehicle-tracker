@@ -1,4 +1,4 @@
-import { Container } from "@mantine/core";
+import { Container, Title, Text, Flex } from "@mantine/core";
 import { userAtom } from "atoms/user";
 import { useAtom } from "jotai";
 
@@ -8,7 +8,14 @@ const UserPage = () => {
 
 	return (
 		<Container size={"lg"} my={"xl"}>
-			UserPage
+			<Flex justify="center" align={"center"} direction={"column"} gap={10}>
+				<Title>
+					{user.name} {user.surname}
+				</Title>
+				<Text>Alias: {user.username}</Text>
+				<Text>Email: {user.email}</Text>
+				<Text>Registered at: {user.created}</Text>
+			</Flex>
 		</Container>
 	);
 };
