@@ -129,13 +129,12 @@ const LoginPage = () => {
                         Forgot password?
                     </Anchor>
                 </Group> */}
-					<Group justify="center" gap={0}>
+					<Group justify="center" gap={10}>
 						<Button fullWidth mt="xl" type="submit" disabled={loading ?? true}>
 							{loading ? <Loader color="blue" size={"sm"} /> : "Login"}
 						</Button>
 						<Button
-							// fullWidth
-							mt="sm"
+							fullWidth
 							variant="outline"
 							disabled={loading ?? true}
 							onClick={handleSocialLogin}
@@ -148,7 +147,7 @@ const LoginPage = () => {
 								</>
 							)}
 						</Button>
-						<Text c="dimmed" size="sm" ta="center" mt={25}>
+						<Text c="dimmed" size="sm" ta="center">
 							Do not have an account yet?&nbsp;
 							<Anchor
 								size="sm"
