@@ -1,4 +1,4 @@
-import { ICreateVehicle, IRegisterKms } from "atoms/vehicle";
+import type { ICreateVehicle, IRegisterKms } from "atoms/vehicle";
 import { useConnectDB } from "hooks/auth/useConnectDB";
 
 export const useListVehicles = () => {
@@ -6,7 +6,7 @@ export const useListVehicles = () => {
 	return async (userId: string) => {
 		return (await pb)
 			.collection("avg_kms_and_paid")
-			.getList(1, 20, { filter: `user_id = "${userId}"` });
+			.getList(1, 20, { filter: `user_id = "${userId}" && deleted = ""` });
 	};
 };
 
@@ -30,7 +30,9 @@ export const useCreateVehicle = () => {
 export const useDeleteVehicle = () => {
 	const pb = useConnectDB();
 	return async (vehicleId: string) => {
-		return (await pb).collection("vehicles").delete(vehicleId);
+		return (await pb).collection("vehicles").update(vehicleId, {
+			deleted: `${new Date().toISOString().slice(0, 23)}Z`,
+		});
 	};
 };
 
