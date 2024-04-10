@@ -44,16 +44,16 @@ const DashboardPage = () => {
 			brand: "",
 			nameplate: "",
 			color: "",
-			current_kms: "",
+			current_kms: 0,
 		},
 	});
 
 	const addFuelForm = useForm({
 		initialValues: {
 			vehicle_id: vehicle.id,
-			km: "",
-			paid: "",
-			price: "",
+			km: 0,
+			paid: 0,
+			price: 0,
 		},
 	});
 

@@ -1,7 +1,6 @@
 import {
 	Anchor,
 	Button,
-	Checkbox,
 	Container,
 	Group,
 	Loader,
@@ -123,12 +122,6 @@ const LoginPage = () => {
 						mt="md"
 						{...form.getInputProps("password")}
 					/>
-					{/* <Group justify="space-between" mt="lg">
-                    <Checkbox label="Remember me" />
-                    <Anchor component="button" size="sm">
-                        Forgot password?
-                    </Anchor>
-                </Group> */}
 					<Group justify="center" gap={10}>
 						<Button fullWidth mt="xl" type="submit" disabled={loading ?? true}>
 							{loading ? <Loader color="blue" size={"sm"} /> : "Login"}
