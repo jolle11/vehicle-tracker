@@ -1,11 +1,16 @@
 import { Modal, Paper, NumberInput, Button, Loader } from "@mantine/core";
-import type { useForm } from "@mantine/form";
+import type { UseFormReturnType } from "@mantine/form";
 import type { Dispatch, SetStateAction } from "react";
 
 interface IAddFuelModal {
 	open: string;
 	setOpen: Dispatch<SetStateAction<string>>;
-	addFuelForm: ReturnType<typeof useForm>;
+	addFuelForm: UseFormReturnType<{
+		vehicle_id: string;
+		km: number;
+		paid: number;
+		price: number;
+	}>;
 	handleAddFuel: (values: any) => void;
 	loading?: boolean;
 }

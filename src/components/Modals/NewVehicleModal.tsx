@@ -8,7 +8,7 @@ import {
 	Loader,
 	Autocomplete,
 } from "@mantine/core";
-import type { useForm } from "@mantine/form";
+import type { UseFormReturnType } from "@mantine/form";
 import type { SetStateAction, Dispatch } from "react";
 import { renderAutocompleteOption } from "components/RenderBrandsAutocomplete";
 import brands from "assets/brands.json";
@@ -16,7 +16,13 @@ import brands from "assets/brands.json";
 interface INewVehicleModal {
 	open: string;
 	setOpen: Dispatch<SetStateAction<string>>;
-	createVehicleForm: ReturnType<typeof useForm>;
+	createVehicleForm: UseFormReturnType<{
+		user_id: string;
+		brand: string;
+		nameplate: string;
+		color: string;
+		current_kms: number;
+	}>;
 	handleNewVehicle: (values: any) => void;
 	loading?: boolean;
 }
