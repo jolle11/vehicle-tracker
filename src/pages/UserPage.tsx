@@ -3,8 +3,7 @@ import { userAtom } from "atoms/user";
 import { useAtom } from "jotai";
 
 const UserPage = () => {
-	const [user, setUser] = useAtom(userAtom);
-	console.log(user);
+	const [user] = useAtom(userAtom);
 
 	return (
 		<Container size={"lg"} my={"xl"}>
@@ -14,7 +13,14 @@ const UserPage = () => {
 				</Title>
 				<Text>Alias: {user.username}</Text>
 				<Text>Email: {user.email}</Text>
-				<Text>Registered at: {user.created}</Text>
+				<Text>
+					Registered at:&nbsp;
+					{new Date(user.created)
+						.toISOString()
+						.replace(/T/, " ")
+						.replace(/\..+/, "")
+						.replace(/-/g, "/")}
+				</Text>
 			</Flex>
 		</Container>
 	);
