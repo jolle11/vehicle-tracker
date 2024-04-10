@@ -9,7 +9,7 @@
 		"enabled": true,
 		"rules": {
 			"all": true,
-			"style": { "useNamingConvention": "off" },
+			"style": { "useNamingConvention": "off", "noDefaultExport": "off" },
 			"suspicious": { "noConsoleLog": "off", "noExplicitAny": "off" },
 			"correctness": { "useExhaustiveDependencies": "off" },
 			"nursery": { "useImportRestrictions": "off" }
