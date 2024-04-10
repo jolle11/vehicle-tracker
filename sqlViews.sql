@@ -6,6 +6,7 @@ SELECT
   v.brand,
   v.nameplate,
   v.color,
+  v.deleted,
   COALESCE(ROUND(AVG(CASE WHEN t.row_num > 1 THEN t.last_km - t.prev_km END), 2), 0) AS media_tank,
   COALESCE(ROUND(AVG(CASE WHEN t.row_num > 1 THEN t.paid END), 2), 0) AS media_paid,
   t.last_km
