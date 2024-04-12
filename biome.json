@@ -1,10 +1,12 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
-		"lineWidth": 80,
-		"ignore": [ "*.jsx", "*.tsx" ]
+		"lineWidth": 80
 	},
 	"linter": {
 		"enabled": true,
@@ -35,9 +37,6 @@
 				"noSvgWithoutTitle": "off"
 			}
 		}
-	},
-	"organizeImports": {
-		"enabled": false
 	},
 	"javascript": {
 		"formatter": {
