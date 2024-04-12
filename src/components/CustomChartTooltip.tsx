@@ -9,7 +9,9 @@ interface ChartTooltipProps {
 const CustomChartTooltip = ({ label, payload }: ChartTooltipProps) => {
 	const capitalize = useCapitalizeFirstLetter();
 
-	if (!payload) return null;
+	if (!payload) {
+		return null;
+	}
 
 	return (
 		<Paper px="sm" py="sm" withBorder shadow="md">

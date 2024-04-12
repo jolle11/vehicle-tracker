@@ -85,21 +85,21 @@ const VehiclePage = () => {
 				</Flex>
 			</Flex>
 			<Container size={"sm"} my={"xl"}>
-				{!loading ? (
-					<KmLineChart kms={kms} media_paid={vehicle.media_paid} />
-				) : (
+				{loading ? (
 					<Flex justify="center" align={"center"} direction={"column"}>
 						<Loader size={"xl"} mt={"xl"} color={"yellow.9"} />
 					</Flex>
+				) : (
+					<KmLineChart kms={kms} media_paid={vehicle.media_paid} />
 				)}
 			</Container>
 			<Container size={"sm"} my={"xl"}>
-				{!loading ? (
-					<KmTable kms={kms} />
-				) : (
+				{loading ? (
 					<Flex justify="center" align={"center"} direction={"column"}>
 						<Loader size={"xl"} mt={"xl"} />
 					</Flex>
+				) : (
+					<KmTable kms={kms} />
 				)}
 			</Container>
 			<DeleteVehicleModal

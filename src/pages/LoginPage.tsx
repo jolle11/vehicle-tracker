@@ -69,6 +69,7 @@ const LoginPage = () => {
 					message: error.message,
 					icon: <Xmark />,
 				});
+				navigate("/");
 				setLoading(false);
 			});
 	});
@@ -100,6 +101,7 @@ const LoginPage = () => {
 					message: error.message,
 					icon: <Xmark />,
 				});
+				navigate("/");
 				setLoading(false);
 			});
 	};

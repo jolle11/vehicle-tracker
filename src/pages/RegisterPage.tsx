@@ -63,6 +63,7 @@ const RegisterPage = () => {
 					icon: <Xmark />,
 				});
 				setLoading(false);
+				navigate("/");
 			});
 	});
 
