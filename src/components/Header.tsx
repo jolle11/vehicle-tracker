@@ -46,11 +46,7 @@ export function Header() {
 				<Container size={"lg"}>
 					<Group justify="space-between" h="100%" py={12}>
 						<Group>
-							<Button
-								onClick={() =>
-									navigate(`${userAuthenticated ? "/dashboard" : "/"}`)
-								}
-							>
+							<Button onClick={() => navigate("/")}>
 								<Parking />
 							</Button>
 						</Group>

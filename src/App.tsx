@@ -30,7 +30,6 @@ function App() {
 					<Route path="/register" element={<RegisterPage />} />
 					{userAuthenticated && (
 						<>
-							<Route path="/dashboard" element={<DashboardPage />} />
 							<Route path="/:username" element={<UserPage />} />
 							<Route
 								path="/:vehicleBrand/:vehicleNameplate"
