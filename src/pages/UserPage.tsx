@@ -5,6 +5,8 @@ import { useAtom } from "jotai";
 const UserPage = () => {
 	const [user] = useAtom(userAtom);
 
+	// TODO: Ability to change username, name and surname
+
 	return (
 		<Container size={"lg"} my={"xl"}>
 			<Flex justify="center" align={"center"} direction={"column"} gap={10}>

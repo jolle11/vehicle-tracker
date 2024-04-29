@@ -132,6 +132,8 @@ const DashboardPage = () => {
 		}
 	}, [user, list]);
 
+	// TODO: add ability to change username from this screen
+
 	return userAuthenticated ? (
 		<Container size={"lg"} my={"xl"}>
 			<Flex my={"xl"} align={"center"} direction={"column"} wrap={"wrap"}>

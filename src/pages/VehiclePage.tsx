@@ -42,7 +42,7 @@ const VehiclePage = () => {
 				});
 				setUserVehicles(userVehicles.filter((item) => item.id !== vehicle.id));
 				setLoading(false);
-				navigate("/dashboard");
+				navigate("/");
 			})
 			.catch((error) => console.log(error));
 	};

@@ -60,7 +60,7 @@ const LoginPage = () => {
 					message: `Welcome back ${response.record.username}`,
 					icon: <Check />,
 				});
-				navigate("/dashboard");
+				navigate("/");
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -92,7 +92,7 @@ const LoginPage = () => {
 					message: `Welcome back ${response.record.username}`,
 					icon: <Check />,
 				});
-				navigate("/dashboard");
+				navigate("/");
 				setLoading(false);
 			})
 			.catch((error) => {

@@ -53,7 +53,7 @@ const RegisterPage = () => {
 					message: `Welcome ${response.username}`,
 					icon: <Check />,
 				});
-				navigate("/dashboard");
+				navigate("/");
 				setLoading(false);
 			})
 			.catch((error) => {
