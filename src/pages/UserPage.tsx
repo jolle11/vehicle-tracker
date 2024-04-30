@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 
 const UserPage = () => {
-	const [user, setUser] = useAtom(userAtom);
+	const [user] = useAtom(userAtom);
 	const [open, setOpen] = useState("");
 	const [loading, setLoading] = useState(false);
 
