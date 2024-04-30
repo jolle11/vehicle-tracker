@@ -1,11 +1,13 @@
-import { Container, Title, Text, Flex } from "@mantine/core";
+import { Container, Title, Text, Flex, Button } from "@mantine/core";
 import { userAtom } from "atoms/user";
+import { UpdateUsernameModal } from "components/Modals/UpdateUsernameModal";
 import { useAtom } from "jotai";
+import { useState } from "react";
 
 const UserPage = () => {
-	const [user] = useAtom(userAtom);
-
-	// TODO: Ability to change username, name and surname
+	const [user, setUser] = useAtom(userAtom);
+	const [open, setOpen] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	return (
 		<Container size={"lg"} my={"xl"}>
@@ -23,7 +25,16 @@ const UserPage = () => {
 						.replace(/\..+/, "")
 						.replace(/-/g, "/")}
 				</Text>
+				<Button onClick={() => setOpen("update-username")}>
+					Change username
+				</Button>
 			</Flex>
+			<UpdateUsernameModal
+				open={open}
+				setOpen={setOpen}
+				loading={loading}
+				setLoading={setLoading}
+			/>
 		</Container>
 	);
 };
