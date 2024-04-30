@@ -44,6 +44,7 @@ export const UpdateUsernameModal = ({
 					label="New username"
 					placeholder="John Doe"
 					required
+					data-autofocus
 					value={username}
 					onChange={(event) => setUsername(event.currentTarget.value)}
 				/>
