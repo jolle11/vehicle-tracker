@@ -15,7 +15,6 @@ import { userVehiclesAtom } from "atoms/user";
 import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
 import { useNavigate } from "react-router-dom";
 import VehiclePageMenu from "components/Menus/VehiclePageMenu";
-import { useGetUser } from "hooks/auth/useGetUser";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);
@@ -27,7 +26,6 @@ const VehiclePage = () => {
 	const deleteVehicle = useDeleteVehicle();
 	const notification = useNotifications();
 	const navigate = useNavigate();
-	const setUser = useGetUser();
 
 	const [loading, setLoading] = useState(true);
 	const [open, setOpen] = useState("");
@@ -50,8 +48,6 @@ const VehiclePage = () => {
 	};
 
 	useEffect(() => {
-		setUser();
-
 		const selectedVehicle = JSON.parse(
 			localStorage.getItem("selectedVehicle") as string,
 		);
