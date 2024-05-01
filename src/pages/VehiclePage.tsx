@@ -48,13 +48,16 @@ const VehiclePage = () => {
 	};
 
 	useEffect(() => {
-		const selectedVehicle = JSON.parse(
-			localStorage.getItem("selectedVehicle") as string,
-		);
-
-		if (!!vehicle && selectedVehicle !== undefined) {
-			setVehicle(selectedVehicle);
+		if (!vehicle.id) {
+			navigate("/");
 		}
+		// const selectedVehicle = JSON.parse(
+		// 	localStorage.getItem("selectedVehicle") as string,
+		// );
+
+		// if (!!vehicle && selectedVehicle !== undefined) {
+		// 	setVehicle(selectedVehicle);
+		// }
 	}, []);
 
 	useEffect(() => {
