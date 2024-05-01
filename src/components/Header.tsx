@@ -3,20 +3,17 @@ import {
 	Burger,
 	Button,
 	Center,
-	Collapse,
 	Container,
-	Divider,
 	Drawer,
 	Group,
 	ScrollArea,
-	UnstyledButton,
 	rem,
 	useComputedColorScheme,
 	useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { HalfMoon, Parking, ProfileCircle, SunLight } from "iconoir-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
 import { useLogout } from "hooks/auth/useLogout";
@@ -25,7 +22,6 @@ import { userAtom } from "atoms/user";
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
 		useDisclosure(false);
-	const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
 	const { setColorScheme } = useMantineColorScheme();
 	const computedColorScheme = useComputedColorScheme("light", {
@@ -106,30 +102,52 @@ export function Header() {
 				onClose={closeDrawer}
 				size="100%"
 				padding="md"
-				title="Menu"
 				hiddenFrom="sm"
 				zIndex={1000000}
 			>
-				<ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
-					<Divider my="sm" />
-					<Link to="/">Home</Link>
-					<UnstyledButton onClick={toggleLinks}>
-						<Center inline>
-							<Box component="span" mr={5}>
-								Features
-							</Box>
-						</Center>
-					</UnstyledButton>
-					<Collapse in={linksOpened}>
-						<Link to="/">Learn</Link>
-						<Link to="/">Academy</Link>
-					</Collapse>
-
-					<Divider my="sm" />
-					{/* TODO Add theme button to drawer */}
+				<ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md" px={15}>
+					<Center pb={20}>
+						<Button.Group>
+							<Button
+								onClick={() =>
+									setColorScheme(
+										computedColorScheme === "light" ? "dark" : "light",
+									)
+								}
+								variant="light"
+								color="yellow"
+								p={6}
+								aria-label="Toggle color scheme"
+							>
+								{computedColorScheme === "light" ? (
+									<SunLight fontSize={14} />
+								) : (
+									<HalfMoon fontSize={14} />
+								)}
+							</Button>
+							{userAuthenticated && (
+								<Button
+									variant="light"
+									onClick={() => navigate(`/${user.username}`)}
+								>
+									<ProfileCircle />
+								</Button>
+							)}
+						</Button.Group>
+					</Center>
+					<Center pb={20}>
+						<Button
+							variant="transparent"
+							onClick={() => {
+								closeDrawer();
+								navigate("/");
+							}}
+						>
+							Home
+						</Button>
+					</Center>
 					<Group justify="center" grow pb="xl" px="md">
 						{userAuthenticated ? (
-							// TODO Create function for logout with notification and deletion from local storage
 							<Button color="red.9" variant="light" onClick={logout}>
 								Logout
 							</Button>
