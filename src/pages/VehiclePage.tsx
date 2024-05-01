@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import VehiclePageMenu from "components/Menus/VehiclePageMenu";
 
 const VehiclePage = () => {
-	const [vehicle, setVehicle] = useAtom(vehicleAtom);
+	const [vehicle] = useAtom(vehicleAtom);
 	const [kms, setKms] = useAtom(kmAtom);
 	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
 
