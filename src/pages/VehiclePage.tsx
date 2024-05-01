@@ -15,12 +15,18 @@ import { userVehiclesAtom } from "atoms/user";
 import DeleteVehicleModal from "components/Modals/DeleteVehicleModal";
 import { useNavigate } from "react-router-dom";
 import VehiclePageMenu from "components/Menus/VehiclePageMenu";
+import { useSetCurrency } from "hooks/utils/useSetCurrency";
+import { useSetMeasure } from "hooks/utils/useSetMeasure";
 
 const VehiclePage = () => {
 	const [vehicle, setVehicle] = useAtom(vehicleAtom);
 	const [kms, setKms] = useAtom(kmAtom);
 	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
+	const [userCurrency, setUserCurrency] = useState("");
+	const [userMeasure, setUserMeasure] = useState("");
 
+	const setCurrency = useSetCurrency();
+	const setMeasure = useSetMeasure();
 	const listKm = useListKms();
 	const dateFormat = useDateFormat();
 	const deleteVehicle = useDeleteVehicle();
@@ -46,6 +52,25 @@ const VehiclePage = () => {
 			})
 			.catch((error) => console.log(error));
 	};
+
+	useEffect(() => {
+		if (!localStorage.getItem("currency")) {
+			setCurrency.then((currency) => {
+				localStorage.setItem("measure", currency);
+				setUserCurrency(currency);
+			});
+		} else {
+			setUserCurrency(localStorage.getItem("currency") as string);
+		}
+		if (!localStorage.getItem("measure")) {
+			setMeasure.then((measure) => {
+				localStorage.setItem("measure", measure);
+				setUserMeasure(measure);
+			});
+		} else {
+			setUserMeasure(localStorage.getItem("measure") as string);
+		}
+	}, []);
 
 	useEffect(() => {
 		const selectedVehicle = JSON.parse(
@@ -90,7 +115,12 @@ const VehiclePage = () => {
 						<Loader size={"xl"} mt={"xl"} color={"yellow.9"} />
 					</Flex>
 				) : (
-					<KmLineChart kms={kms} media_paid={vehicle.media_paid} />
+					<KmLineChart
+						kms={kms}
+						media_paid={vehicle.media_paid}
+						currency={userCurrency}
+						measure={userMeasure}
+					/>
 				)}
 			</Container>
 			<Container size={"sm"} my={"xl"}>
@@ -99,7 +129,7 @@ const VehiclePage = () => {
 						<Loader size={"xl"} mt={"xl"} />
 					</Flex>
 				) : (
-					<KmTable kms={kms} />
+					<KmTable kms={kms} currency={userCurrency} measure={userMeasure} />
 				)}
 			</Container>
 			<DeleteVehicleModal
