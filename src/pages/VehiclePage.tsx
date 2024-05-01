@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import VehiclePageMenu from "components/Menus/VehiclePageMenu";
 
 const VehiclePage = () => {
-	const [vehicle] = useAtom(vehicleAtom);
+	const [vehicle, setVehicle] = useAtom(vehicleAtom);
 	const [kms, setKms] = useAtom(kmAtom);
 	const [userVehicles, setUserVehicles] = useAtom(userVehiclesAtom);
 
@@ -48,16 +48,13 @@ const VehiclePage = () => {
 	};
 
 	useEffect(() => {
-		if (!vehicle.id) {
-			navigate("/");
-		}
-		// const selectedVehicle = JSON.parse(
-		// 	localStorage.getItem("selectedVehicle") as string,
-		// );
+		const selectedVehicle = JSON.parse(
+			localStorage.getItem("selectedVehicle") as string,
+		);
 
-		// if (!!vehicle && selectedVehicle !== undefined) {
-		// 	setVehicle(selectedVehicle);
-		// }
+		if (!!vehicle && selectedVehicle !== undefined) {
+			setVehicle(selectedVehicle);
+		}
 	}, []);
 
 	useEffect(() => {
