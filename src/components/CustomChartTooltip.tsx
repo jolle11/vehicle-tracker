@@ -4,9 +4,16 @@ import useCapitalizeFirstLetter from "hooks/utils/useCapitalizeFirstLetter";
 interface ChartTooltipProps {
 	label: string;
 	payload: Record<string, any>[] | undefined;
+	currency?: string;
+	measure?: string;
 }
 
-const CustomChartTooltip = ({ label, payload }: ChartTooltipProps) => {
+const CustomChartTooltip = ({
+	label,
+	payload,
+	currency,
+	measure,
+}: ChartTooltipProps) => {
 	const capitalize = useCapitalizeFirstLetter();
 
 	if (!payload) {
@@ -21,10 +28,11 @@ const CustomChartTooltip = ({ label, payload }: ChartTooltipProps) => {
 			{payload.map((item: any) => (
 				<>
 					<Text key={item.name} c={item.color} fz="sm">
-						{capitalize(item.name)}: {item.value}€
+						{capitalize(item.name)}: {item.value}
+						{currency}
 					</Text>
 					<Text key={item.name} c="green.9" fz="sm">
-						Refueled on: {item.payload.km} km
+						Refueled on: {item.payload.km} {measure}
 					</Text>
 				</>
 			))}

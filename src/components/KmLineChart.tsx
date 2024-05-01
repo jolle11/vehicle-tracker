@@ -5,7 +5,14 @@ import CustomChartTooltip from "./CustomChartTooltip";
 const KmLineChart = ({
 	kms,
 	media_paid,
-}: { kms: IKm[]; media_paid: string | number | null }) => {
+	currency,
+	measure,
+}: {
+	kms: IKm[];
+	media_paid: string | number | null;
+	currency: string;
+	measure: string;
+}) => {
 	const media_line = Number.parseFloat(media_paid as string);
 	return (
 		<LineChart
@@ -16,18 +23,23 @@ const KmLineChart = ({
 			referenceLines={[
 				{
 					y: media_line,
-					label: `Media paid ${media_paid}€`,
+					label: `Media paid ${media_paid}${currency}`,
 					color: "indigo.6",
 				},
 			]}
 			tooltipProps={{
 				content: ({ label, payload }) => (
-					<CustomChartTooltip label={label} payload={payload} />
+					<CustomChartTooltip
+						label={label}
+						payload={payload}
+						currency={currency}
+						measure={measure}
+					/>
 				),
 			}}
 			activeDotProps={{ r: 7, strokeWidth: 2, fill: "#fff" }}
 			strokeWidth={1.5}
-			unit="€"
+			unit={currency}
 			curveType="bump"
 		/>
 	);
