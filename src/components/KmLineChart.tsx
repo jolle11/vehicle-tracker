@@ -41,6 +41,7 @@ const KmLineChart = ({
 			strokeWidth={1.5}
 			unit={currency}
 			curveType="bump"
+			xAxisProps={{ padding: { left: 10, right: 10 } }}
 		/>
 	);
 };
