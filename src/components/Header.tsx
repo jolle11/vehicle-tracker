@@ -8,25 +8,19 @@ import {
 	Group,
 	ScrollArea,
 	rem,
-	useComputedColorScheme,
-	useMantineColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { HalfMoon, Parking, ProfileCircle, SunLight } from "iconoir-react";
+import { Parking, ProfileCircle } from "iconoir-react";
 import { useNavigate } from "react-router-dom";
 import { userAuthenticatedAtom } from "atoms/auth";
 import { useAtom } from "jotai";
 import { useLogout } from "hooks/auth/useLogout";
 import { userAtom } from "atoms/user";
+import ThemeButton from "./ThemeButton";
 
 export function Header() {
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
 		useDisclosure(false);
-
-	const { setColorScheme } = useMantineColorScheme();
-	const computedColorScheme = useComputedColorScheme("light", {
-		getInitialValueInEffect: true,
-	});
 
 	const [user] = useAtom(userAtom);
 
@@ -47,23 +41,7 @@ export function Header() {
 							</Button>
 						</Group>
 						<Button.Group visibleFrom="sm">
-							<Button
-								onClick={() =>
-									setColorScheme(
-										computedColorScheme === "light" ? "dark" : "light",
-									)
-								}
-								variant="light"
-								color="yellow"
-								p={6}
-								aria-label="Toggle color scheme"
-							>
-								{computedColorScheme === "light" ? (
-									<SunLight fontSize={14} />
-								) : (
-									<HalfMoon fontSize={14} />
-								)}
-							</Button>
+							<ThemeButton />
 							{userAuthenticated ? (
 								<>
 									<Button
@@ -87,7 +65,6 @@ export function Header() {
 								</>
 							)}
 						</Button.Group>
-
 						<Burger
 							opened={drawerOpened}
 							onClick={toggleDrawer}
@@ -96,7 +73,6 @@ export function Header() {
 					</Group>
 				</Container>
 			</header>
-
 			<Drawer
 				opened={drawerOpened}
 				onClose={closeDrawer}
@@ -108,23 +84,7 @@ export function Header() {
 				<ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md" px={15}>
 					<Center pb={20}>
 						<Button.Group>
-							<Button
-								onClick={() =>
-									setColorScheme(
-										computedColorScheme === "light" ? "dark" : "light",
-									)
-								}
-								variant="light"
-								color="yellow"
-								p={6}
-								aria-label="Toggle color scheme"
-							>
-								{computedColorScheme === "light" ? (
-									<SunLight fontSize={14} />
-								) : (
-									<HalfMoon fontSize={14} />
-								)}
-							</Button>
+							<ThemeButton />
 							{userAuthenticated && (
 								<Button
 									variant="light"
